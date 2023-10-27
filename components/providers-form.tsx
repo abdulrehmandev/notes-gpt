@@ -4,7 +4,7 @@ import { Mail } from "lucide-react";
 import { signIn } from "next-auth/react";
 import React, { FC, useState } from "react";
 
-import { Icons } from "@/components/icons";
+import { Icons } from "./icons";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/hooks/use-toast";
