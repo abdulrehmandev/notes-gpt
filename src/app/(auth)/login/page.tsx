@@ -40,17 +40,17 @@ const Login: FC<LoginProps> = async () => {
             {/* providers signin buttons */}
             <div className="flex flex-col gap-3 mt-6">
               <SigninButton provider="google" />
-              <SigninButton provider="github" />
+              {/* <SigninButton provider="github" /> */}
             </div>
 
             {/* or divider */}
-            <OrDivider className="mt-6 mb-8" />
+            {/* <OrDivider className="mt-6 mb-8" /> */}
 
             {/* email login form */}
-            <LoginAuthForm />
+            {/* <LoginAuthForm /> */}
 
             {/* other links */}
-            <Link
+            {/* <Link
               href="/forget-password"
               className={buttonVariants({
                 variant: "secondaryLink",
@@ -58,9 +58,9 @@ const Login: FC<LoginProps> = async () => {
               })}
             >
               Forgot password?
-            </Link>
+            </Link> */}
             <p className="text-xs text-center text-stone-600 mt-2">
-              Don{"’"}t have a account?{" "}
+              Don&apos;t have an account?{" "}
               <Link
                 href="/signup"
                 className={buttonVariants({

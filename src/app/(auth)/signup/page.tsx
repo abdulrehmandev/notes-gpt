@@ -38,18 +38,18 @@ const Signup: FC<SignupProps> = async () => {
 
             {/* providers signin buttons */}
             <div className="flex flex-col gap-3 mt-6">
-              <SigninButton provider="google" />
+              {/* <SigninButton provider="google" /> */}
               <SigninButton provider="github" />
             </div>
 
             {/* or divider */}
-            <OrDivider className="mt-6 mb-8" />
+            {/* <OrDivider className="mt-6 mb-8" /> */}
 
             {/* email Signup form */}
-            <SignupAuthForm />
+            {/* <SignupAuthForm /> */}
 
             {/* other links */}
-            <p className="text-xs text-center text-stone-600 mt-2">
+            {/* <p className="text-xs text-center text-stone-600 mt-2">
               Already have a account?{" "}
               <Link
                 href="/login"
@@ -61,7 +61,7 @@ const Signup: FC<SignupProps> = async () => {
               >
                 Login
               </Link>
-            </p>
+            </p> */}
           </div>
         </div>
       </div>

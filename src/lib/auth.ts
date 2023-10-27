@@ -8,45 +8,45 @@ import { compare } from "bcryptjs";
 
 export const authOptions: AuthOptions = {
   providers: [
-    GithubProvider({
-      clientId: process.env.GITHUB_ID as string,
-      clientSecret: process.env.GITHUB_SECRET as string,
-    }),
+    // GithubProvider({
+    //   clientId: process.env.GITHUB_ID as string,
+    //   clientSecret: process.env.GITHUB_SECRET as string,
+    // }),
     GoogleProvider({
       clientId: process.env.GOOGLE_ID as string,
       clientSecret: process.env.GOOGLE_SECRET as string,
     }),
-    CredentialsProvider({
-      name: "Credentials",
-      credentials: {
-        email: { label: "Email", type: "text", placeholder: "jsmith" },
-        password: { label: "Password", type: "password" },
-      },
-      async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) {
-          throw new Error("No credentials provided");
-        }
+    // CredentialsProvider({
+    //   name: "Credentials",
+    //   credentials: {
+    //     email: { label: "Email", type: "text", placeholder: "jsmith" },
+    //     password: { label: "Password", type: "password" },
+    //   },
+    //   async authorize(credentials) {
+    //     if (!credentials?.email || !credentials?.password) {
+    //       throw new Error("No credentials provided");
+    //     }
 
-        const user = await db.user.findFirst({
-          where: {
-            email: credentials.email,
-          },
-        });
+    //     const user = await db.user.findFirst({
+    //       where: {
+    //         email: credentials.email,
+    //       },
+    //     });
 
-        if (!user || !user.password) {
-          throw new Error("No user found");
-        }
+    //     if (!user || !user.password) {
+    //       throw new Error("No user found");
+    //     }
 
-        if (await compare(user.password, credentials.password)) {
-          throw new Error("Incorrect password");
-        } else {
-          return {
-            id: user.id,
-            email: user.email,
-          };
-        }
-      },
-    }),
+    //     if (await compare(user.password, credentials.password)) {
+    //       throw new Error("Incorrect password");
+    //     } else {
+    //       return {
+    //         id: user.id,
+    //         email: user.email,
+    //       };
+    //     }
+    //   },
+    // }),
   ],
   callbacks: {
     session: ({ session, token }) => {
