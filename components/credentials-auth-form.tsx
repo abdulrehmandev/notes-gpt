@@ -57,7 +57,7 @@ export const CredentialsAuthForm: React.FC<CredentialsAuthFormProps> = ({}) => {
         Forgot Passwrod?
       </Link>
 
-      <Button type="submit" className="w-full">
+      <Button disabled type="submit" className="w-full">
         Sign In
       </Button>
     </form>

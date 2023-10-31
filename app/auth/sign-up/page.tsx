@@ -42,7 +42,7 @@ const SignUpPage: FC<SignUpPageProps> = ({}) => {
                 {...register("email", { required: true })}
                 placeholder="Enter your email"
               />
-              <Button type="submit" className="w-full">
+              <Button disabled type="submit" className="w-full">
                 Continue with email
               </Button>
             </form>

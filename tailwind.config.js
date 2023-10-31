@@ -75,6 +75,9 @@ module.exports = {
       fontSize: {
         "2xs": "0.625rem",
       },
+      backgroundImage: {
+        "pipes-pattern": "url('../assets/patterns/pipes.png')",
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],

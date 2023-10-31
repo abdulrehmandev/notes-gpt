@@ -10,7 +10,7 @@ export default function AuthLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main>
+    <main className="min-h-screen py-0">
       {/* auth custom header */}
       <header className="w-full">
         <Container className="my-10">

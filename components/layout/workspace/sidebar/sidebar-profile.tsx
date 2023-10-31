@@ -12,6 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "../../../ui/dropdown-menu";
 import { signOut, useSession } from "next-auth/react";
+import Link from "next/link";
 
 interface SideBarProfileProps {}
 
@@ -36,9 +37,11 @@ export const SideBarProfile = ({}: SideBarProfileProps) => {
           <p className="opacity-70">{session.user?.email}</p>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <User className="w-4 h-4" />
-          <span className="ml-2">Profile</span>
+        <DropdownMenuItem asChild>
+          <Link href="/user/profile">
+            <User className="w-4 h-4" />
+            <span className="ml-2">Profile</span>
+          </Link>
         </DropdownMenuItem>
         <DropdownMenuItem>
           <Settings className="w-4 h-4" />

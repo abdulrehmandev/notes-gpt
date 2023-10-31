@@ -43,30 +43,17 @@ export const Navbar: React.FC<NavbarProps> = ({ session }) => {
             <ThemeToggle />
 
             {session ? (
-              <>
-                <Button
-                  size="sm"
-                  variant="secondary"
-                  onClick={() => {
-                    signOut({
-                      callbackUrl: `${window.location.origin}/auth/sign-in`,
-                    });
-                  }}
-                >
-                  Sign out
-                </Button>
-                <Link
-                  className={cn(
-                    buttonVariants({
-                      className: "hover:no-underline",
-                      size: "sm",
-                    })
-                  )}
-                  href="/workspace"
-                >
-                  Go to Workspace
-                </Link>
-              </>
+              <Link
+                className={cn(
+                  buttonVariants({
+                    className: "hover:no-underline",
+                    size: "sm",
+                  })
+                )}
+                href="/workspace"
+              >
+                Workspace
+              </Link>
             ) : (
               <>
                 {/* auth links */}
