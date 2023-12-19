@@ -2,9 +2,11 @@
 
 import React, { FC, Suspense } from "react";
 import {
+  Bell,
   ChevronsLeft,
   File,
   Loader,
+  Plus,
   Search,
   Sparkles,
   Users,
@@ -12,12 +14,14 @@ import {
 import { useAtom } from "jotai";
 
 import { Logo } from "@/components/layout/logo";
-import { SideBarLink } from "@/components/layout/workspace/sidebar/sidebar-link";
+import { SideBarLink } from "@/components/workspace-sidebar/sidebar-link";
 import { SideBarProfile } from "./sidebar-profile";
 import { findSheetAtom, searchCommandAtom, sideBarAtom } from "@/lib/atoms";
 import { cn } from "@/lib/utils";
-import { Button } from "../../../ui/button";
-import { Kbd } from "../../../ui/kbd";
+import { Button } from "../ui/button";
+import { Kbd } from "../ui/kbd";
+import { Separator } from "@/components/ui/separator";
+import { ThemeToggle } from "../theme-toggle";
 
 interface SideBarProps {}
 
@@ -41,41 +45,34 @@ export const SideBar: FC<SideBarProps> = ({}) => {
   return (
     <aside
       className={cn(
-        `fixed top-0 left-0 bottom-0 max-w-[240px] flex flex-col justify-between w-full bg-neutral-50 dark:bg-neutral-900 pt-6 pb-4 px-3 border-r border-border transition-transform duration-300 shadow-md md:shadow-none ${
+        `fixed top-0 left-0 bottom-0 max-w-[240px] flex flex-col justify-between w-full bg-background pt-6 pb-4 px-3 border-r border-border transition-transform duration-300 shadow-lg md:shadow-none ${
           sideBarOpen ? "" : "-translate-x-full md:translate-x-0"
         }`,
         sideBarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
       )}
     >
       <div>
-        <Logo className="ml-2 mb-5 hidden md:flex" />
+        {/* <Logo className="ml-2 mb-5 hidden md:flex" /> */}
 
-        <div className="flex justify-between mb-5 pl-3 w-full md:hidden">
+        <div className="flex justify-between mb-5 pl-3 w-full">
           <Logo variant="icon" size="lg" />
-          <Button
-            variant="outline"
-            className="px-2 gap-1"
-            size="sm"
-            onClick={() => setSideBarOpen(false)}
-          >
-            <Kbd size="xs">Esc</Kbd>
-            <ChevronsLeft size={16} />
-          </Button>
+          <div className="flex gap-1">
+            <ThemeToggle />
+            <Button
+              variant="outline"
+              className="px-2 gap-1 md:hidden"
+              size="sm"
+              onClick={() => setSideBarOpen(false)}
+            >
+              <ChevronsLeft size={16} />
+            </Button>
+          </div>
         </div>
 
-        <Button
-          size="sm"
-          className="flex w-full md:hidden mb-2"
-          onClick={() => setFindOpen(true)}
-        >
-          <span>Find with AI</span>
-          <Sparkles size={13} className="ml-2" />
-        </Button>
-
-        <Button
+        {/* <Button
           variant="outline"
           size="sm"
-          className="flex gap-2 items-center px-2 text-input-foreground text-xs md:hidden w-full justify-between mb-3"
+          className="flex gap-2 items-center px-2 text-input-foreground text-xs w-full justify-between mb-2"
           onClick={() => setSearchOpen(true)}
         >
           <div className="flex items-center gap-2">
@@ -83,7 +80,37 @@ export const SideBar: FC<SideBarProps> = ({}) => {
             <span className="text-muted-foreground mr-2">Search ...</span>
           </div>
           <Kbd size="sm">Ctrl + K</Kbd>
+        </Button> */}
+
+        <Button
+          size="sm"
+          variant="primary"
+          className="flex w-full mb-6"
+          onClick={() => setFindOpen(true)}
+        >
+          <span>Find with AI</span>
+          <Sparkles size={13} className="ml-2" />
         </Button>
+
+        <div className="flex flex-col gap-0.5">
+          <SideBarLink href={"#"}>
+            <Search className="w-4 h-4" />
+            <span>Search</span>
+          </SideBarLink>
+          <SideBarLink href={"#"}>
+            <Bell className="w-4 h-4" />
+            <span>Notifications</span>
+          </SideBarLink>
+          <SideBarLink
+            className="text-primary opacity-100"
+            href={"/workspace/notes/create"}
+          >
+            <Plus className="w-4 h-4" />
+            <span>Create note</span>
+          </SideBarLink>
+        </div>
+
+        <Separator className="my-4" />
 
         <Suspense
           fallback={
@@ -99,7 +126,7 @@ export const SideBar: FC<SideBarProps> = ({}) => {
             </SideBarLink>
             <SideBarLink href={"/workspace/rooms"}>
               <Users className="w-4 h-4" />
-              <span>Rooms</span>
+              <span>Spaces</span>
             </SideBarLink>
           </div>
         </Suspense>

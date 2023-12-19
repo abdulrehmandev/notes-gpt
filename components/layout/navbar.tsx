@@ -48,6 +48,7 @@ export const Navbar: React.FC<NavbarProps> = ({ session }) => {
                   buttonVariants({
                     className: "hover:no-underline",
                     size: "sm",
+                    variant: "primary",
                   })
                 )}
                 href="/workspace"
@@ -74,6 +75,7 @@ export const Navbar: React.FC<NavbarProps> = ({ session }) => {
                     buttonVariants({
                       className: "hover:no-underline",
                       size: "sm",
+                      variant: "primary",
                     })
                   )}
                   href="/auth/sign-up"
@@ -122,6 +124,7 @@ export const Navbar: React.FC<NavbarProps> = ({ session }) => {
                         buttonVariants({
                           className: "hover:no-underline w-full",
                           size: "sm",
+                          variant: "primary",
                         })
                       )}
                       href="/workspace"
@@ -155,7 +158,12 @@ export const Navbar: React.FC<NavbarProps> = ({ session }) => {
                       Sign in
                     </NextLink>
                     <NextLink
-                      className={cn(buttonVariants({ className: "w-full" }))}
+                      className={cn(
+                        buttonVariants({
+                          className: "w-full",
+                          variant: "primary",
+                        })
+                      )}
                       href="/auth/sign-up"
                     >
                       Sign up

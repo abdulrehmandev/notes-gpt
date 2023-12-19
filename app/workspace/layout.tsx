@@ -1,7 +1,7 @@
 import { FindSheet } from "@/components/layout/workspace/find-sheet";
 import { DashboardNavBar } from "@/components/layout/workspace/navbar";
 import { SearchCommand } from "@/components/layout/workspace/search-command";
-import { SideBar } from "@/components/layout/workspace/sidebar/sidebar";
+import { SideBar } from "@/components/workspace-sidebar/sidebar";
 
 export default function WorkspaceLayout({
   children,
@@ -15,7 +15,7 @@ export default function WorkspaceLayout({
         <DashboardNavBar />
         {children}
         <FindSheet />
-        <SearchCommand />
+        {/* <SearchCommand /> */}
       </main>
     </section>
   );

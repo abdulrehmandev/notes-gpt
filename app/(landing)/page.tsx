@@ -1,5 +1,5 @@
 import { Container } from "@/components/layout/container";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
@@ -21,7 +21,10 @@ export default function Home() {
             retrieval.
           </p>
           <div className="flex items-center gap-3 justify-center mt-6 lg:mt-8">
-            <Link href="/" className={cn(buttonVariants())}>
+            <Link
+              href="/"
+              className={cn(buttonVariants({ variant: "primary" }))}
+            >
               Get Started
             </Link>
             <Link

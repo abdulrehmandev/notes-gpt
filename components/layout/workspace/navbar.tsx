@@ -54,7 +54,7 @@ export const DashboardNavBar: FC<DashboardNavBarProps> = ({}) => {
         <Sidebar size={16} />
       </Button>
 
-      <Button
+      {/* <Button
         className="hidden md:flex"
         size="sm"
         onClick={() => setFindOpen(true)}
@@ -94,7 +94,7 @@ export const DashboardNavBar: FC<DashboardNavBarProps> = ({}) => {
         <ThemeToggle />
 
         <NotificationDropDown />
-      </div>
+      </div> */}
     </div>
   );
 };

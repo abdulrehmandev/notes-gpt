@@ -7,8 +7,14 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
-import { SideBarLink } from "../workspace/sidebar/sidebar-link";
-import { ArrowRightFromLine, ChevronsLeft, Settings, User } from "lucide-react";
+import { SideBarLink } from "../../workspace-sidebar/sidebar-link";
+import {
+  ArrowRightFromLine,
+  ChevronsLeft,
+  Settings,
+  Sidebar,
+  User,
+} from "lucide-react";
 import { useBreakpoint } from "@/hooks/use-breakpoint";
 import { useLayoutEffect, useState } from "react";
 import { useAtom } from "jotai";
@@ -25,29 +31,33 @@ export const UserSideBar = () => {
   }, [breakpointAboveMd]);
 
   return (
-    <Sheet open={false} onOpenChange={setIsNavOpen}>
+    <Sheet open={isAboveMd ? true : isNavOpen} onOpenChange={setIsNavOpen}>
       <SheetContent
         side="left"
         appearClose={false}
         appearOverlay={false}
-        className="sm:max-w-[280px] w-full"
+        className="sm:max-w-[280px] w-full focus-visible:outline-none shadow-none"
       >
         <SheetHeader className="mb-10">
           <SheetTitle>Settings</SheetTitle>
         </SheetHeader>
 
-        <SheetClose className="absolute top-6 -right-4 bg-background" asChild>
+        <SheetClose
+          className="absolute top-6 right-4 bg-background flex md:hidden"
+          asChild
+        >
           <Button
-            variant="outline"
+            variant="ghost"
             size="sm"
             onClick={() => setIsNavOpen((prevState) => !prevState)}
           >
-            <ChevronsLeft size={16} />
+            {/* <ChevronsLeft size={16} /> */}
+            <Sidebar size={16} />
           </Button>
         </SheetClose>
 
         <nav className="flex flex-col w-full gap-1">
-          <SideBarLink href="/user/profile">
+          <SideBarLink href="/user/profile" isActive>
             <User size={15} /> Profile
           </SideBarLink>
           <SideBarLink href="/user/account-settings">

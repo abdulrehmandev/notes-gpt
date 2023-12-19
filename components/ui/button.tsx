@@ -6,18 +6,19 @@ import { cn } from "@/lib/utils";
 
 // button component variants for different sizes and styles
 const buttonVariants = cva(
-  "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 cursor-pointer",
   {
     variants: {
       variant: {
-        default:
-          "bg-primary text-primary-foreground shadow hover:bg-primary/80",
+        default: "bg-foreground text-background shadow hover:bg-foreground/80",
         destructive:
           "bg-red-600/80 text-white shadow-sm hover:bg-red-500/90 border border-red-400",
         success:
           "bg-green-700/80 text-white shadow-sm hover:bg-green-600/90 border border-green-400",
         outline:
           "border border-input bg-transparent shadow-sm hover:bg-accent hover:text-accent-foreground",
+        primary:
+          "bg-primary text-primary-foreground shadow hover:bg-primary/80",
         secondary:
           "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
@@ -33,7 +34,7 @@ const buttonVariants = cva(
     },
     defaultVariants: {
       variant: "default",
-      size: "default",
+      size: "sm",
     },
   }
 );
