@@ -7,11 +7,6 @@ datasource db {
     url      = "file:./dev.db"
 }
 
-// datasource db {
-//     provider = "postgresql"
-//     url      = "env(DATABASE_URI)"
-// }
-
 model Account {
     id                 String    @id @default(cuid())
     userId             String
@@ -47,6 +42,8 @@ model User {
     image         String?
     username      String?   @unique
     password      String?
+    bio           String?
+    phone         String?
 
     createdAt DateTime  @default(now())
     updatedAt DateTime  @updatedAt
