@@ -2,29 +2,38 @@
 
 import { usePathname } from "next/navigation";
 
-import SidebarLink from "./SidebarLink";
+import SidebarLink from "../shared/SidebarLink";
 
 const settingLinks = [
   { href: "/user/settings", text: "Contact Info" },
-  { href: "/user/settings/profile", text: "Profile" },
   { href: "/user/settings/account", text: "Account" },
-  { href: "/user/settings/reset-password", text: "Password" },
-  { href: "/user/settings/notifications", text: "Notifications" },
+  { href: "/user/settings/security", text: "Security", disabled: true },
+  {
+    href: "/user/settings/notifications",
+    text: "Notifications",
+    disabled: true,
+  },
 ];
 
 const SettingsSidebarContent = () => {
   const pathname = usePathname();
 
   return (
-    <aside className="max-w-[256px] min-h-screen">
+    <aside className="max-w-[240px] min-h-screen">
       <h1 className="font-semibold tracking-tighter text-4xl mb-6">Settings</h1>
-      <nav className="flex flex-col gap-2 w-full">
+      <nav className="flex flex-col w-full">
         {settingLinks.map((link) => (
           <SidebarLink
             key={link.href}
             className="w-full"
             href={link.href}
-            variant={link.href === pathname ? "active" : "default"}
+            variant={
+              link.disabled
+                ? "disabled"
+                : link.href === pathname
+                ? "active"
+                : "default"
+            }
             text={link.text}
           />
         ))}

@@ -1,6 +1,11 @@
-import PrimaryNav from "@/components/shared/PrimaryNav";
-import { getAuthSession } from "@/lib/auth";
 import { FC } from "react";
+import dynamic from "next/dynamic";
+
+import { getAuthSession } from "@/lib/auth";
+
+const PrimaryNav = dynamic(() => import("@/components/shared/PrimaryNav"), {
+  ssr: false,
+});
 
 interface UserLayoutProps {
   children: React.ReactNode;
@@ -8,11 +13,11 @@ interface UserLayoutProps {
 
 const UserLayout: FC<UserLayoutProps> = async ({ children }) => {
   const session = await getAuthSession();
-  // console.log(session?.user);
+
   return (
     <>
       <PrimaryNav session={session} />
-      {children}
+      <div className="pt-14">{children}</div>
     </>
   );
 };

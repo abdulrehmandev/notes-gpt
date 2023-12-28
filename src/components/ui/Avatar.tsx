@@ -5,6 +5,7 @@ import * as AvatarPrimitive from "@radix-ui/react-avatar";
 
 import { cn } from "@/lib/utils";
 import { VariantProps, cva } from "class-variance-authority";
+import { UserRound } from "lucide-react";
 
 const avatarVariant = cva(
   "relative flex shrink-0 overflow-hidden rounded-full",
@@ -52,16 +53,22 @@ AvatarImage.displayName = AvatarPrimitive.Image.displayName;
 const AvatarFallback = React.forwardRef<
   React.ElementRef<typeof AvatarPrimitive.Fallback>,
   React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Fallback>
->(({ className, ...props }, ref) => (
-  <AvatarPrimitive.Fallback
-    ref={ref}
-    className={cn(
-      "flex h-full w-full items-center justify-center rounded-full font-medium bg-zinc-300 text-white",
-      className
-    )}
-    {...props}
-  />
-));
+>(({ className, ...props }, ref) => {
+  if (!props.children) {
+    props.children = <UserRound />;
+  }
+
+  return (
+    <AvatarPrimitive.Fallback
+      ref={ref}
+      className={cn(
+        "flex h-full w-full items-center justify-center rounded-full font-medium bg-zinc-300 text-white",
+        className
+      )}
+      {...props}
+    />
+  );
+});
 AvatarFallback.displayName = AvatarPrimitive.Fallback.displayName;
 
 export { Avatar, AvatarImage, AvatarFallback };

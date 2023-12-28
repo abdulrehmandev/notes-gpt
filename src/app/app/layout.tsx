@@ -1,7 +1,12 @@
-import AppNav from "@/components/shared/PrimaryNav";
-import { getAuthSession } from "@/lib/auth";
-import { redirect } from "next/navigation";
 import React, { FC } from "react";
+import { redirect } from "next/navigation";
+
+import { getAuthSession } from "@/lib/auth";
+import dynamic from "next/dynamic";
+
+const PrimaryNav = dynamic(() => import("@/components/shared/PrimaryNav"), {
+  ssr: false,
+});
 
 interface AppLayoutProps {
   children: React.ReactNode;
@@ -16,8 +21,8 @@ const AppLayout: FC<AppLayoutProps> = async ({ children }) => {
 
   return (
     <>
-      <AppNav session={session} />
-      {children}
+      <PrimaryNav session={session} />
+      <div className="pt-14">{children}</div>
     </>
   );
 };
