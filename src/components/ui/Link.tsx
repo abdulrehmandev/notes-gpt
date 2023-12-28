@@ -3,12 +3,13 @@ import { FC } from "react";
 import NextLink, { LinkProps as NextLinkProps } from "next/link";
 import { cn } from "@/lib/utils";
 
-const linkVariants = cva("w-fit", {
+export const linkVariants = cva("w-fit", {
   variants: {
     variant: {
       accent: "no-underline text-blue-600 hover:underline",
       underline: "underline hover:text-blue-600",
       fade: "no-underline hover:opacity-60",
+      destructive: "no-underline text-red-600 hover:underline",
     },
     size: {
       default: "",

@@ -122,7 +122,7 @@ const SignInForm: FC<SignInFormProps> = ({}) => {
         </p>
 
         <p className="text-xs text-center">
-          Don't have an account yet?{" "}
+          Don&apos;t have an account yet?{" "}
           <Link href="/auth/sign-up" text="Register now" />
         </p>
       </form>

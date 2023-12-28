@@ -61,6 +61,9 @@ export const authOptions: AuthOptions = {
             email: user.email,
             picture: user.image,
             username: user.username,
+            isPrivate: user.isPrivate,
+            phone: user.phone,
+            bio: user.bio,
           };
         } catch (error) {
           return null;
@@ -76,6 +79,9 @@ export const authOptions: AuthOptions = {
         session.user.email = token.email;
         session.user.name = token.name;
         session.user.image = token.picture;
+        session.user.phone = token.phone;
+        session.user.isPrivate = token.isPrivate;
+        session.user.bio = token.bio;
       }
 
       return session;
@@ -109,12 +115,11 @@ export const authOptions: AuthOptions = {
         email: dbUser.email,
         picture: dbUser.image,
         username: dbUser.username,
+        phone: dbUser.phone,
+        isPrivate: dbUser.isPrivate,
+        bio: dbUser.bio,
       };
     },
-    // redirect: ({ url }) => {
-    //   if (url.endsWith("/auth/sign-out")) return "/auth/sign-in";
-    //   // return "/app";
-    // },
   },
 };
 

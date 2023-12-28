@@ -106,7 +106,7 @@ const SignUpForm: FC<SignUpFormProps> = ({}) => {
               <FormControl>
                 <Input placeholder="••••••••" type="password" {...field} />
               </FormControl>
-              <FormDescription>Minimum length is 8 characters.</FormDescription>
+              <FormDescription>Minimum length is 6 characters.</FormDescription>
               <FormMessage />
             </FormItem>
           )}

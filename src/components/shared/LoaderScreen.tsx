@@ -5,7 +5,7 @@ interface LoadingScreenProp {}
 
 const LoadingScreen: FC<LoadingScreenProp> = () => {
   return (
-    <div className="min-h-screen w-full flex flex-col gap-3 items-center justify-center">
+    <div className="min-h-[70vh] w-full flex flex-col gap-3 items-center justify-center">
       <Loader className="w-6 h-6 animate-spin " />
       <h5 className="text-zinc-700 font-medium text-sm">Please wait...</h5>
     </div>

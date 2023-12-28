@@ -17,7 +17,7 @@ const AuthLayout: FC<AuthLayoutProps> = ({ children }) => {
       <nav className="w-full py-6">
         <div className="container max-w-5xl">
           <NextLink
-            href="/"
+            href="/app"
             className={cn(
               buttonVariants({ variant: "ghost", className: "gap-2" })
             )}
@@ -30,7 +30,7 @@ const AuthLayout: FC<AuthLayoutProps> = ({ children }) => {
       {children}
 
       {/* footer */}
-      <footer className="absolute bottom-0 w-full pt-2 pb-3 border-t border-zinc-300">
+      <footer className="absolute bottom-0 w-full pt-2 pb-3 border-t border-zinc-200">
         <nav className="flex items-center flex-wrap justify-center gap-3 md:gap-8 container max-w-5xl">
           <Link href="#" size="xs" text="Explore" />
           <Link href="#" size="xs" text="Help" />
