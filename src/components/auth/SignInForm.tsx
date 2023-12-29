@@ -62,7 +62,7 @@ const SignInForm: FC<SignInFormProps> = ({}) => {
         {error && (
           <Alert variant="destructive">
             <AlertCircle className="w-4 h-4" />
-            <AlertTitle>Credentials do not match!</AlertTitle>
+            <AlertTitle>Credentials are not correct!</AlertTitle>
           </Alert>
         )}
         <FormField
