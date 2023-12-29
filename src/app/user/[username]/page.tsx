@@ -86,17 +86,17 @@ const UserProfilePage: FC<UserProfilePageProps> = ({ params }) => {
           <div className="sm:hidden flex justify-evenly gap-3 border-y border-zinc-200 py-3 text-sm">
             <div className="text-center">
               <p className="font-semibold">0</p>
-              <h4 className="text-zinc-500">notes</h4>
+              <h4 className="text-zinc-700">notes</h4>
             </div>
             <div className="text-center">
               <p className="font-semibold">17</p>
-              <h4 className="text-zinc-500">following</h4>
+              <h4 className="text-zinc-700">following</h4>
             </div>
           </div>
 
           {/* notes */}
           <div className="flex flex-col items-center justify-center gap-3 h-full min-h-[300px]">
-            <Lock className="w-16 h-16 text-zinc-500" />
+            <Lock className="w-16 h-16 text-zinc-700" />
             <h3 className="text-sm text-center">
               This Account&apos;s notes are Private.
             </h3>

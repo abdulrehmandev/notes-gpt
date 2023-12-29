@@ -22,16 +22,9 @@ import Container from "../layout/Container";
 import PrimaryNavLink from "./PrimaryNavLink";
 import { useBreakpoint } from "@/lib/hooks/use-breakpoint";
 import { Button, buttonVariants } from "../ui/Button";
-
 import { Sheet, SheetContent } from "../ui/Sheet";
 import SidebarLink from "./SidebarLink";
 import { cn } from "@/lib/utils";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "../ui/Accordion";
 
 const navLinks = [
   { id: 1, href: "/app", text: "Home" },
@@ -175,68 +168,70 @@ const AppNavDesktop: FC<AppNavProps> = ({ session }) => {
   const pathname = usePathname();
 
   return (
-    <Container className="w-full py-3 bg-white border-b-0 border-zinc-200 flex items-center justify-between fixed left-0 right-0 z-10">
-      <nav className="flex items-center gap-4">
-        <Logo className="mr-6" />
-        {session?.user &&
-          navLinks.map((link) => (
-            <AppNavLink
-              key={link.id}
-              href={link.href}
-              text={link.text}
-              variant={pathname === link.href ? "active" : "default"}
-            />
-          ))}
-      </nav>
+    <div className="bg-white border-b border-zinc-200 w-full">
+      <Container className="w-full py-3 flex items-center justify-between">
+        <nav className="flex items-center gap-4">
+          <Logo className="mr-6" />
+          {session?.user &&
+            navLinks.map((link) => (
+              <AppNavLink
+                key={link.id}
+                href={link.href}
+                text={link.text}
+                variant={pathname === link.href ? "active" : "default"}
+              />
+            ))}
+        </nav>
 
-      {session?.user ? (
-        <DropdownMenu>
-          <DropdownMenuTrigger>
-            <Avatar>
-              <AvatarImage src="" />
-              <AvatarFallback>
-                {session?.user.name ? (
-                  getInitials(session?.user.name)
-                ) : (
-                  <UserRound />
-                )}
-              </AvatarFallback>
-            </Avatar>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <div className="flex items-center justify-start gap-2 p-2">
-              <div className="flex flex-col space-y-1 leading-none">
-                {session.user.name && (
-                  <p className="font-medium">{session.user.name}</p>
-                )}
-                {session.user.email && (
-                  <p className="w-[200px] truncate text-sm text-muted-foreground">
-                    {session.user.email}
-                  </p>
-                )}
+        {session?.user ? (
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              <Avatar size="md">
+                <AvatarImage src="" />
+                <AvatarFallback className="text-xs">
+                  {session?.user.name ? (
+                    getInitials(session?.user.name)
+                  ) : (
+                    <UserRound />
+                  )}
+                </AvatarFallback>
+              </Avatar>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="min-w-[200px]">
+              {/* <div className="flex items-center justify-start gap-2 p-2">
+                <div className="flex flex-col space-y-1 leading-none">
+                  {session.user.name && (
+                    <p className="font-medium">{session.user.name}</p>
+                  )}
+                  {session.user.email && (
+                    <p className="w-[200px] truncate text-sm text-muted-foreground">
+                      {session.user.email}
+                    </p>
+                  )}
+                </div>
               </div>
-            </div>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem asChild>
-              <Link href={`/user/${session.user.username}`}>
-                <User className="w-4 h-4 mr-2" /> Profile
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem asChild>
-              <Link href="/user/settings">
-                <Settings className="w-4 h-4 mr-2" /> Settings
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => signOut()}>
-              <LogOut className="w-4 h-4 mr-2" /> Sign out
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      ) : (
-        <PrimaryNavLink href="/auth/sign-in" text="Sign In" />
-      )}
-    </Container>
+              <DropdownMenuSeparator /> */}
+              <DropdownMenuItem asChild>
+                <Link href={`/user/${session.user.username}`}>
+                  <User className="w-4 h-4 mr-2" /> Profile
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/user/settings">
+                  <Settings className="w-4 h-4 mr-2" /> Settings
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onClick={() => signOut()}>
+                <LogOut className="w-4 h-4 mr-2" /> Sign out
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        ) : (
+          <PrimaryNavLink href="/auth/sign-in" text="Sign In" />
+        )}
+      </Container>
+    </div>
   );
 };
 

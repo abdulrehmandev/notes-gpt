@@ -17,7 +17,7 @@ const UserLayout: FC<UserLayoutProps> = async ({ children }) => {
   return (
     <>
       <PrimaryNav session={session} />
-      <div className="pt-14">{children}</div>
+      <div className="pb-8">{children}</div>
     </>
   );
 };

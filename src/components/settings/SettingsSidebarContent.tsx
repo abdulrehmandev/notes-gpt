@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 import SidebarLink from "../shared/SidebarLink";
 
 const settingLinks = [
-  { href: "/user/settings", text: "Contact Info" },
   { href: "/user/settings/account", text: "Account" },
   { href: "/user/settings/security", text: "Security", disabled: true },
   {
@@ -19,8 +18,8 @@ const SettingsSidebarContent = () => {
   const pathname = usePathname();
 
   return (
-    <aside className="max-w-[240px] min-h-screen">
-      <h1 className="font-semibold tracking-tighter text-4xl mb-6">Settings</h1>
+    <aside className="max-w-[240px]">
+      {/* <h1 className="font-semibold tracking-tighter text-3xl mb-6">Settings</h1> */}
       <nav className="flex flex-col w-full">
         {settingLinks.map((link) => (
           <SidebarLink

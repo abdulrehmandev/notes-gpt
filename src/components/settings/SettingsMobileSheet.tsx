@@ -11,15 +11,13 @@ const SettingsMobileSheet = () => {
   return (
     <>
       <div className="flex items-center justify-between gap-4">
-        <h1 className="font-semibold tracking-tighter text-4xl text-zinc-500">
-          Settings
-        </h1>
+        <h1 className="font-semibold tracking-tighter text-3xl">Settings</h1>
         <Button
           size="icon"
           variant="ghost"
           onClick={() => setIsDrawerOpen(true)}
         >
-          <SidebarOpen className="w-4 h-4 text-zinc-500 rotate-180" />
+          <SidebarOpen className="w-4 h-4 text-zinc-700 rotate-180" />
         </Button>
       </div>
       <Sheet open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
