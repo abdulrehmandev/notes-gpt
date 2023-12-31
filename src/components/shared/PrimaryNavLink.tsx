@@ -8,6 +8,7 @@ export const appNavLinkVariants = cva("rounded-full px-4 py-0.5 text-sm", {
     variant: {
       default: "text-zinc-950 hover:text-blue-500",
       active: "text-blue-500 bg-blue-50",
+      disabled: "text-zinc-300 cursor-not-allowed",
     },
   },
   defaultVariants: {

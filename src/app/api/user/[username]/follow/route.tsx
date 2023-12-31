@@ -32,8 +32,8 @@ export async function POST(
 
     const follower = await db.follower.findFirst({
       where: {
-        userId: user.id,
-        followingId: session.user.id,
+        userId: session.user.id,
+        followingId: user.id,
       },
     });
 
@@ -43,8 +43,8 @@ export async function POST(
       });
     }
 
-    await db.follower.findFirst({
-      where: {
+    await db.follower.create({
+      data: {
         userId: session.user.id,
         followingId: user.id,
         status: user.isPrivate ? "PENDING" : "ACCEPTED",
@@ -52,6 +52,54 @@ export async function POST(
     });
 
     return new Response("OK", { status: 200 });
+  } catch (error) {
+    return new Response("Internal server error", { status: 500 });
+  }
+}
+
+export async function GET(
+  req: Request,
+  { params }: { params: { username: string } }
+) {
+  try {
+    const session = await getAuthSession();
+
+    if (!session) {
+      return new Response("Unauthorized", { status: 401 });
+    }
+
+    const { username } = params;
+
+    const user = await db.user.findFirst({
+      where: {
+        username,
+      },
+    });
+
+    if (!user) {
+      return new Response("User not found", { status: 404 });
+    }
+
+    if (user.id === session.user.id) {
+      return new Response("Invalid Request! You can not follow yourself.", {
+        status: 400,
+      });
+    }
+
+    const follower = await db.follower.findFirst({
+      where: {
+        userId: session.user.id,
+        followingId: user.id,
+      },
+    });
+
+    if (!follower) {
+      return new Response("Not followed!", {
+        status: 200,
+      });
+    }
+
+    return new Response(JSON.stringify(follower), { status: 200 });
   } catch (error) {
     return new Response("Internal server error", { status: 500 });
   }
@@ -88,8 +136,8 @@ export async function DELETE(
 
     const follower = await db.follower.findFirst({
       where: {
-        userId: user.id,
-        followingId: session.user.id,
+        userId: session.user.id,
+        followingId: user.id,
       },
     });
 
