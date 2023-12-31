@@ -22,7 +22,7 @@ const AppLayout: FC<AppLayoutProps> = async ({ children }) => {
   return (
     <>
       <PrimaryNav session={session} />
-      <div className="pt-14">{children}</div>
+      <div>{children}</div>
     </>
   );
 };

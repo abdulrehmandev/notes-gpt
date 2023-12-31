@@ -27,7 +27,6 @@ const UserProfilePage: FC<UserProfilePageProps> = ({ params }) => {
   const { username } = params;
 
   const { data: session } = useSession();
-  const router = useRouter();
 
   const {
     data: user,
@@ -52,6 +51,8 @@ const UserProfilePage: FC<UserProfilePageProps> = ({ params }) => {
     mutationFn: async () => follow_user(username),
     onSuccess: () => {
       toast.success("Followed " + (user?.username || "user") + " successfully");
+      refetchFollower();
+      refetchUser();
     },
     onError: () => {
       toast.error("Failed to follow " + (user?.username || "user"));
@@ -103,41 +104,52 @@ const UserProfilePage: FC<UserProfilePageProps> = ({ params }) => {
               <div className="col-span-4">
                 <div className="flex flex-col sm:items-center sm:flex-row gap-3 sm:gap-6">
                   <h1 className="font-medium text-base">{user?.username}</h1>
-                  {session?.user.username !== user.username ? (
-                    follower?.id ? (
-                      <Button
-                        variant="secondary"
-                        loading={isUnfollowLoading}
-                        onClick={() => unfollow()}
-                        disabled={!isFollowerFetched}
-                        className="w-full sm:w-fit"
-                      >
-                        {isFollowerFetched ? (
-                          follower.status === "PENDING" ? (
-                            "Requested"
+                  {session?.user ? (
+                    session?.user.username !== user.username ? (
+                      follower?.id ? (
+                        <Button
+                          variant="secondary"
+                          loading={isUnfollowLoading}
+                          onClick={() => unfollow()}
+                          disabled={!isFollowerFetched}
+                          className="w-full sm:w-fit"
+                        >
+                          {isFollowerFetched ? (
+                            follower.status === "PENDING" ? (
+                              "Requested"
+                            ) : (
+                              "Unfollow"
+                            )
                           ) : (
-                            "Unfollow"
-                          )
-                        ) : (
-                          <Loader className="w-4 h-4 animate-spin" />
-                        )}
-                      </Button>
+                            <Loader className="w-4 h-4 animate-spin" />
+                          )}
+                        </Button>
+                      ) : (
+                        <Button
+                          variant="primary"
+                          loading={isFollowLoading}
+                          onClick={() => follow()}
+                          className="w-full sm:w-fit"
+                        >
+                          Follow
+                        </Button>
+                      )
                     ) : (
-                      <Button
-                        variant="primary"
-                        loading={isFollowLoading}
-                        onClick={() => follow()}
-                        className="w-full sm:w-fit"
+                      <NextLink
+                        href="/user/settings/account"
+                        className={cn(buttonVariants({ variant: "secondary" }))}
                       >
-                        Follow
-                      </Button>
+                        Edit Profile
+                      </NextLink>
                     )
                   ) : (
                     <NextLink
-                      href="/user/settings/account"
-                      className={cn(buttonVariants({ variant: "secondary" }))}
+                      href="/auth/sign-in"
+                      className={cn(
+                        buttonVariants({ variant: "primary", size: "sm" })
+                      )}
                     >
-                      Edit Profile
+                      Sign in to follow
                     </NextLink>
                   )}
                 </div>

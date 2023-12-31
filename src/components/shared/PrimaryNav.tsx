@@ -4,7 +4,7 @@ import { FC, useState } from "react";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LogOut, Menu, Settings, User, UserRound } from "lucide-react";
+import { Bell, LogOut, Menu, Settings, User, UserRound } from "lucide-react";
 import type { Session } from "next-auth";
 
 import {
@@ -28,8 +28,8 @@ import { cn } from "@/lib/utils";
 
 const navLinks = [
   { id: 1, href: "/app", text: "Home" },
-  { id: 2, href: "groups", text: "Groups" },
-  { id: 3, href: "ai", text: "Ask AI" },
+  { id: 2, href: "groups", text: "Groups", disabled: true },
+  { id: 3, href: "ai", text: "Ask AI", disabled: true },
 ];
 
 interface AppNavProps {
@@ -113,7 +113,7 @@ const AppNavMobile: FC<AppNavProps> = ({ session }) => {
 
                   <DropdownMenuContent className="min-w-[14.5rem]" side="top">
                     <DropdownMenuItem asChild>
-                      <Link href={`/user/${session.user.username}`}>
+                      <Link href={`/${session.user.username}`}>
                         <User className="w-4 h-4 mr-2" /> Profile
                       </Link>
                     </DropdownMenuItem>
@@ -166,6 +166,7 @@ const AppNavMobile: FC<AppNavProps> = ({ session }) => {
 
 const AppNavDesktop: FC<AppNavProps> = ({ session }) => {
   const pathname = usePathname();
+  const [notifOpen, setNotifOpen] = useState(false);
 
   return (
     <div className="bg-white border-b border-zinc-200 w-full">
@@ -178,27 +179,47 @@ const AppNavDesktop: FC<AppNavProps> = ({ session }) => {
                 key={link.id}
                 href={link.href}
                 text={link.text}
-                variant={pathname === link.href ? "active" : "default"}
+                variant={
+                  link.disabled
+                    ? "disabled"
+                    : pathname === link.href
+                    ? "active"
+                    : "default"
+                }
               />
             ))}
         </nav>
 
-        {session?.user ? (
-          <DropdownMenu>
-            <DropdownMenuTrigger>
-              <Avatar size="md">
-                <AvatarImage src="" />
-                <AvatarFallback className="text-xs">
-                  {session?.user.name ? (
-                    getInitials(session?.user.name)
-                  ) : (
-                    <UserRound />
-                  )}
-                </AvatarFallback>
-              </Avatar>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="min-w-[200px]">
-              {/* <div className="flex items-center justify-start gap-2 p-2">
+        <div className="flex items-center gap-3">
+          {/* <Button
+            size="icon"
+            variant="ghost"
+            onClick={() => setNotifOpen(true)}
+          >
+            <Bell className="w-4 h-4" />
+          </Button> */}
+          <AppNavLink
+            href="/app/notifications"
+            text={"Notifications"}
+            variant={pathname === "/app/notifications" ? "active" : "default"}
+          />
+
+          {session?.user ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger>
+                <Avatar size="md">
+                  <AvatarImage src="" />
+                  <AvatarFallback className="text-xs">
+                    {session?.user.name ? (
+                      getInitials(session?.user.name)
+                    ) : (
+                      <UserRound />
+                    )}
+                  </AvatarFallback>
+                </Avatar>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="min-w-[200px]">
+                {/* <div className="flex items-center justify-start gap-2 p-2">
                 <div className="flex flex-col space-y-1 leading-none">
                   {session.user.name && (
                     <p className="font-medium">{session.user.name}</p>
@@ -211,25 +232,26 @@ const AppNavDesktop: FC<AppNavProps> = ({ session }) => {
                 </div>
               </div>
               <DropdownMenuSeparator /> */}
-              <DropdownMenuItem asChild>
-                <Link href={`/user/${session.user.username}`}>
-                  <User className="w-4 h-4 mr-2" /> Profile
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link href="/user/settings">
-                  <Settings className="w-4 h-4 mr-2" /> Settings
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={() => signOut()}>
-                <LogOut className="w-4 h-4 mr-2" /> Sign out
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        ) : (
-          <PrimaryNavLink href="/auth/sign-in" text="Sign In" />
-        )}
+                <DropdownMenuItem asChild>
+                  <Link href={`/${session.user.username}`}>
+                    <User className="w-4 h-4 mr-2" /> Profile
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/user/settings">
+                    <Settings className="w-4 h-4 mr-2" /> Settings
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={() => signOut()}>
+                  <LogOut className="w-4 h-4 mr-2" /> Sign out
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <PrimaryNavLink href="/auth/sign-in" text="Sign In" />
+          )}
+        </div>
       </Container>
     </div>
   );
