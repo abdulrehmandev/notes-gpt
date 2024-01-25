@@ -21,7 +21,7 @@ const SignUpPage: FC<SignUpPageProps> = async ({}) => {
   }
 
   return (
-    <Container className="min-h-[70vh] flex flex-col items-center justify-center pt-6 pb-8">
+    <Container className="min-h-[70vh] flex flex-col items-center justify-center pt-2 md:pt-6 pb-8">
       <h1 className="text-3xl font-bold tracking-tighter mb-2">Sign Up</h1>
       <SignUpForm />
     </Container>

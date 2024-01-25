@@ -18,17 +18,10 @@ export async function GET(
       return new Response("User not found", { status: 400 });
     }
 
-    const followingCount = await db.follower.count({
+    const publicNotes = await db.note.count({
       where: {
         userId: user.id,
-        status: "ACCEPTED",
-      },
-    });
-
-    const followerCount = await db.follower.count({
-      where: {
-        followingId: user.id,
-        status: "ACCEPTED",
+        isPublic: true,
       },
     });
 
@@ -40,10 +33,9 @@ export async function GET(
         username: user.username,
         email: user.email,
         bio: user.bio,
+        publicNotes: publicNotes,
         phone: user.phone,
-        isPrivate: user.isPrivate,
-        followers: followerCount,
-        following: followingCount,
+        image: user.image,
         created_at: user.createdAt,
       }),
       { status: 200 }

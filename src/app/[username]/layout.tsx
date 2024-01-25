@@ -1,11 +1,7 @@
 import { FC } from "react";
-import dynamic from "next/dynamic";
 
 import { getAuthSession } from "@/lib/auth";
-
-const PrimaryNav = dynamic(() => import("@/components/shared/PrimaryNav"), {
-  ssr: false,
-});
+import Navbar from "@/components/layout/Navbar";
 
 interface ProfilePageProps {
   children: React.ReactNode;
@@ -16,7 +12,7 @@ const ProfilePage: FC<ProfilePageProps> = async ({ children }) => {
 
   return (
     <>
-      <PrimaryNav session={session} />
+      <Navbar type="home" session={session} />
       <div className="pb-8">{children}</div>
     </>
   );

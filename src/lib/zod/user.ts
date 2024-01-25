@@ -11,9 +11,6 @@ export const userSchema = z.object({
   created_at: z.date(),
   image: looseOptional(z.string().url()),
   phone: looseOptional(z.string().refine(validator.isMobilePhone)),
-  followers: z.number().int().positive(),
-  following: z.number().int().positive(),
-  isPrivate: z.boolean(),
 });
 export type UserType = z.infer<typeof userSchema>;
 
