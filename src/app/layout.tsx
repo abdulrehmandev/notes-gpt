@@ -19,7 +19,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en-US">
       <body className={inter.className}>
         <Providers>{children}</Providers>
         <Toaster />

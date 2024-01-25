@@ -14,7 +14,7 @@ export const linkVariants = cva("w-fit", {
     size: {
       default: "",
       sm: "text-sm",
-      xs: "text-xs",
+      xs: "text-[10px]",
     },
   },
   defaultVariants: {

@@ -30,8 +30,8 @@ const AuthLayout: FC<AuthLayoutProps> = ({ children }) => {
       {children}
 
       {/* footer */}
-      <footer className="absolute bottom-0 w-full pt-2 pb-3 border-t border-zinc-200">
-        <nav className="flex items-center flex-wrap justify-center gap-3 md:gap-8 container max-w-5xl">
+      <footer className="absolute bottom-0 w-full pt-2 pb-3 border-t">
+        <nav className="flex items-center flex-wrap justify-center gap-4 md:gap-8 container max-w-5xl">
           <Link href="#" size="xs" text="Explore" />
           <Link href="#" size="xs" text="Help" />
           <Link href="#" size="xs" text="About NotesGPT" />

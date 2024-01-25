@@ -1,15 +1,17 @@
 "use client";
 
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { UserRound } from "lucide-react";
+import { CldUploadButton } from "next-cloudinary";
+import { useMutation } from "react-query";
+import type { CldUploadWidgetResults } from "next-cloudinary";
 import type { Session } from "next-auth";
 
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/Avatar";
-import { Switch } from "@/components/ui/Switch";
 import { Button } from "../ui/Button";
 import {
   FormField,
@@ -21,8 +23,7 @@ import {
   FormDescription,
 } from "../ui/Form";
 import { linkVariants } from "../ui/Link";
-import { Label } from "../ui/Label";
-import { update_user_privacy, update_user_username } from "@/services/user";
+import { update_user_avatar, update_user_username } from "@/services/user";
 import { UsernameType, usernameSchema } from "@/lib/zod/user";
 import { Input } from "../ui/Input";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/Card";
@@ -34,7 +35,19 @@ interface ProfileSettingsFormProps {
 
 const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ session }) => {
   const user = session.user;
-  const [isPrivate, setIsPrivate] = useState<boolean>(user?.isPrivate || false);
+
+  const { mutate: updateAvatar } = useMutation({
+    mutationKey: "update_avatar",
+    mutationFn: async (url: string | null) =>
+      update_user_avatar(user?.username as string, url),
+    onSuccess: () => {
+      toast.success("Avatar updated successfully!");
+      window.location.reload();
+    },
+    onError: () => {
+      toast.error("Failed to update avatar.");
+    },
+  });
 
   // separate form for username as it is changed separately from other details
   const usernameForm = useForm<UsernameType>({
@@ -56,18 +69,18 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ session }) => {
     }
   };
 
-  // on privacy change update the privacy settings
-  useEffect(() => {
-    if (isPrivate !== user.isPrivate) {
-      toast.promise(update_user_privacy(isPrivate), {
-        loading: "Updating privacy settings...",
-        success: async (data) => {
-          return "Privacy settings updated!";
-        },
-        error: "Something went wrong!",
-      });
+  const handleImageUpload = (data: CldUploadWidgetResults) => {
+    if (
+      data.event !== "success" ||
+      typeof data.info == "string" ||
+      !data.info
+    ) {
+      toast.error("Failed to upload image.");
+      return;
     }
-  }, [isPrivate]);
+    console.log("in handle image upload");
+    updateAvatar(data.info?.secure_url);
+  };
 
   return (
     <Card>
@@ -86,33 +99,29 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ session }) => {
             </Avatar>
 
             <div className="space-y-2 flex flex-col items-center text-center">
-              <Button size="sm" variant="outline">
+              {/* <Button size="sm" variant="outline">
                 Upload Image
-              </Button>
+              </Button> */}
+              <CldUploadButton
+                onUpload={handleImageUpload}
+                uploadPreset="notesgpt-avatar"
+              >
+                <Button size="sm" variant="outline">
+                  Upload Image
+                </Button>
+              </CldUploadButton>
               <button
                 className={cn(
                   linkVariants({ variant: "destructive", size: "xs" })
                 )}
+                onClick={() => {
+                  updateAvatar(null);
+                }}
               >
                 Remove Image
               </button>
             </div>
           </div>
-        </div>
-
-        {/* privacy switch */}
-        <div className="flex justify-between">
-          <div>
-            <Label>Private Profile</Label>
-            <p className="text-[0.8rem] text-zinc-700">
-              Switch to private mode to keep your shared notes confidential.
-            </p>
-          </div>
-          <Switch
-            className="mt-1"
-            checked={isPrivate}
-            onCheckedChange={(val) => setIsPrivate(val)}
-          />
         </div>
 
         <Separator />
