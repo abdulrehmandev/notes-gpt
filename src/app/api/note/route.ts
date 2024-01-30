@@ -13,7 +13,13 @@ export async function POST(req: Request) {
     }
 
     const note = noteSchema
-      .pick({ title: true, content: true, userId: true })
+      .pick({
+        title: true,
+        content: true,
+        userId: true,
+        tags: true,
+        isPublic: true,
+      })
       .parse(await req.json());
 
     const newNote = await db.note.create({

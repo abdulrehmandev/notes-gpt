@@ -125,7 +125,7 @@ const UserProfilePage: FC<UserProfilePageProps> = ({ params }) => {
                 <Loader className="w-5 h-5 animate-spin" />
               </div>
             ) : (
-              <div className="px-4 md:px-6 mt-4">
+              <div className="flex flex-col gap-2 px-4 md:px-6 mt-4">
                 {notesQuery.data?.map((note) => (
                   <NoteProfileCard note={note} key={note.id} />
                 ))}

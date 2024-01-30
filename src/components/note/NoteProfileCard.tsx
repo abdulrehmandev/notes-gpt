@@ -7,9 +7,10 @@ interface NoteProfileCardProps {
 }
 
 const NoteProfileCard: FC<NoteProfileCardProps> = ({ note }) => {
+  console.log(note.id);
   return (
-    <Link href={`/app/note/{${note.id}}`}>
-      <div className="w-full border shadow rounded-md px-4 md:px-6 py-4 hover:shadow-md">
+    <Link href={`/app/note/[id]`} as={`/app/note/${note.id}`}>
+      <div className="w-full border transition-shadow rounded-md px-4 md:px-6 py-4 hover:shadow-md">
         <h3 className="text-xl font-semibold mb-1 truncate">{note.title}</h3>
         <p className="text-sm text-zinc-500 truncate mb-1">
           {note.content.blocks[0].data.text ||

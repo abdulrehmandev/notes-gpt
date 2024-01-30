@@ -12,7 +12,7 @@ import type { Session } from "next-auth";
 
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/Avatar";
-import { Button } from "../ui/Button";
+import { Button, buttonVariants } from "../ui/Button";
 import {
   FormField,
   FormItem,
@@ -105,9 +105,13 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ session }) => {
                 onUpload={handleImageUpload}
                 uploadPreset="notesgpt-avatar"
               >
-                <Button size="sm" variant="outline">
+                <div
+                  className={cn(
+                    buttonVariants({ variant: "outline", size: "sm" })
+                  )}
+                >
                   Upload Image
-                </Button>
+                </div>
               </CldUploadButton>
               <button
                 className={cn(
