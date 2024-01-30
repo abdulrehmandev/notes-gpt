@@ -78,7 +78,6 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ session }) => {
       toast.error("Failed to upload image.");
       return;
     }
-    console.log("in handle image upload");
     updateAvatar(data.info?.secure_url);
   };
 

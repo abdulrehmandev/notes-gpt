@@ -15,8 +15,6 @@ export async function GET(
       return new Response("Not Found", { status: 400 });
     }
 
-    console.log(note.isPublic);
-
     return new Response(JSON.stringify(note), { status: 200 });
   } catch (error) {
     return new Response("Internal Server Error", { status: 500 });

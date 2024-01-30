@@ -47,11 +47,12 @@ model User {
     bio           String?
     phone         String?
 
-    createdAt DateTime  @default(now())
-    updatedAt DateTime  @updatedAt
+    createdAt DateTime   @default(now())
+    updatedAt DateTime   @updatedAt
     accounts  Account[]
     sessions  Session[]
     notes     Note[]
+    bookmarks Bookmark[]
 }
 
 model VerificationRequest {
@@ -66,12 +67,24 @@ model VerificationRequest {
 }
 
 model Note {
-    id        String   @id @default(cuid())
+    id        String     @id @default(cuid())
     userId    String
     title     String
     content   Json
-    isPublic  Boolean  @default(false)
+    isPublic  Boolean    @default(false)
+    // tags      String[]  @default([])
+    createdAt DateTime   @default(now())
+    updatedAt DateTime   @updatedAt
+    user      User       @relation(fields: [userId], references: [id])
+    bookmarks Bookmark[]
+}
+
+model Bookmark {
+    id        String   @id @default(cuid())
+    userId    String
+    noteId    String
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
     user      User     @relation(fields: [userId], references: [id])
+    note      Note     @relation(fields: [noteId], references: [id])
 }

@@ -2,7 +2,7 @@ import { NoteType } from "@/lib/zod/note";
 import axios from "axios";
 
 export async function create_note(
-  note: Pick<NoteType, "title" | "content" | "userId">
+  note: Pick<NoteType, "title" | "content" | "userId" | "tags">
 ) {
   const { data } = await axios.post("/api/note", note);
   return data as NoteType;

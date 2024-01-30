@@ -97,8 +97,7 @@ const NotePage: FC<NotePageProps> = ({ params }) => {
             )}
           </div>
         </div>
-        {/* <div>user</div> */}
-        {!!note.content.time && <NoteOutput content={note.content} />}
+        {!!note.content && <NoteOutput content={note.content} />}
       </Container>
     </main>
   );

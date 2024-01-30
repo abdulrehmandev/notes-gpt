@@ -8,6 +8,7 @@ import {
   useRef,
   useState,
 } from "react";
+import { useRouter } from "next/navigation";
 import { useMutation } from "react-query";
 import type EditorJS from "@editorjs/editorjs";
 import type { Session } from "next-auth";
@@ -16,9 +17,11 @@ import { NoteType } from "@/lib/zod/note";
 import { Button } from "../ui/Button";
 import { create_note } from "@/services/note";
 import { Alert } from "../ui/Alert";
-import { useRouter } from "next/navigation";
 import { EditorJSConfig } from "@/lib/editorjs-tools";
 import { Separator } from "../ui/Separator";
+import { TagInput } from "./Tag";
+import { Label } from "../ui/Label";
+import { Switch } from "../ui/Switch";
 
 interface CreateNoteProps {
   session: Session;
@@ -33,10 +36,12 @@ const CreateNoteForm: FC<CreateNoteProps> = ({ session }) => {
   const [error, setError] = useState<string | null>(null);
 
   const [noteData, setNoteData] = useState<
-    Pick<NoteType, "title" | "content" | "userId">
+    Pick<NoteType, "title" | "content" | "userId" | "tags" | "isPublic">
   >({
     title: "",
     content: {},
+    tags: [],
+    isPublic: false,
     userId: session?.user.id,
   });
 
@@ -61,6 +66,9 @@ const CreateNoteForm: FC<CreateNoteProps> = ({ session }) => {
         inlineToolbar: true,
         data: { blocks: [] },
         tools: EditorJSConfig.tools,
+        onChange: () => {
+          setError(null);
+        },
       });
     }
   }, []);
@@ -89,24 +97,26 @@ const CreateNoteForm: FC<CreateNoteProps> = ({ session }) => {
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
 
-    await ref.current
-      ?.save()
-      .then((blocks) =>
-        setNoteData((prevState) => ({ ...prevState, content: blocks }))
-      );
+    const blocks = await ref.current?.save();
 
     if (!noteData.title) {
       setError("Please add a title!");
       return;
     }
 
-    if (!noteData.content.time) {
+    if (blocks?.blocks?.length === 0) {
       setError("Please add some content!");
       return;
     }
 
-    createNote();
+    setNoteData((prevState) => ({ ...prevState, content: blocks }));
   };
+
+  useEffect(() => {
+    if (noteData.content.blocks?.length > 0) {
+      createNote();
+    }
+  }, [noteData.content]);
 
   if (!isMounted) {
     return null;
@@ -114,18 +124,21 @@ const CreateNoteForm: FC<CreateNoteProps> = ({ session }) => {
 
   return (
     <form
-      className="flex gap-4"
+      className="flex flex-col md:flex-row gap-4 p-4 pr-4 md:pr-6"
       onSubmit={handleSubmit}
       onChange={() => setError(null)}
     >
       <div className="w-full flex flex-col max-w-5xl">
         {error && (
-          <Alert variant={"destructive"} className="mb-6 w-fit mx-auto">
+          <Alert
+            variant={"destructive"}
+            className="mb-6 w-full md:w-fit mx-auto"
+          >
             {error || "Fill in all the fields"}
           </Alert>
         )}
         <input
-          className="focus:outline-none w-full px-2 md:px-6 lg:px-12 py-3 font-semibold text-4xl placeholder:text-zinc-200 rounded-lg"
+          className="focus:outline-none w-full px-2 md:px-6 lg:px-12 py-3 font-semibold text-4xl placeholder:text-zinc-300 rounded-lg"
           placeholder="Give me a title..."
           value={noteData.title}
           onChange={(e) =>
@@ -137,16 +150,37 @@ const CreateNoteForm: FC<CreateNoteProps> = ({ session }) => {
         />
         <div
           id="editor"
-          className="min-h-[300px] py-4 w-full max-w-[700px] pl-2 md:pl-6 lg:pl-12 px-2 md:px-4"
+          className="min-h-[300px] py-4 w-full pl-2 md:pl-6 lg:pl-12 px-2 md:px-4"
         />
         <Button
-          className="mr-auto ml-2 md:ml-6 lg:ml-12 mt-6"
+          className="hidden md:flex mr-auto ml-2 md:ml-6 lg:ml-12 mt-6"
           loading={isLoading}
         >
           Save
         </Button>
       </div>
-      <div className="w-96"></div>
+      <div className="w-full md:w-96 mt-4 h-fit border space-y-4 rounded-lg p-5">
+        <div className="w-full flex items-center justify-between">
+          <Label>Public</Label>
+          <Switch
+            checked={noteData.isPublic}
+            onCheckedChange={(val) =>
+              setNoteData((prevState) => ({ ...prevState, isPublic: val }))
+            }
+          />
+        </div>
+        <Separator />
+        <TagInput
+          onValueChange={(val) =>
+            setNoteData((prevState) => ({ ...prevState, tags: val }))
+          }
+          value={noteData.tags}
+        />
+      </div>
+
+      <Button className="md:hidden mr-auto" loading={isLoading}>
+        Save
+      </Button>
     </form>
   );
 };
