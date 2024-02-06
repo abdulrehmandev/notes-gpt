@@ -14,7 +14,7 @@ const AppLayout: FC<AppLayoutProps> = async ({ children }) => {
   return (
     <main>
       <Navbar session={session} />
-      <div className="flex w-full">
+      <div className="flex w-full container px-0">
         <AppSidebar />
         <div className="w-full">{children}</div>
       </div>
