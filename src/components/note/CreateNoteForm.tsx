@@ -25,9 +25,10 @@ import { Switch } from "../ui/Switch";
 
 interface CreateNoteProps {
   session: Session;
+  note?: NoteType;
 }
 
-const CreateNoteForm: FC<CreateNoteProps> = ({ session }) => {
+const CreateNoteForm: FC<CreateNoteProps> = ({ session, note }) => {
   const ref = useRef<EditorJS>();
 
   const router = useRouter();
@@ -38,10 +39,10 @@ const CreateNoteForm: FC<CreateNoteProps> = ({ session }) => {
   const [noteData, setNoteData] = useState<
     Pick<NoteType, "title" | "content" | "userId" | "tags" | "isPublic">
   >({
-    title: "",
-    content: {},
-    tags: [],
-    isPublic: false,
+    title: note ? note.title : "",
+    content: note ? note.content : { blocks: [] },
+    tags: note ? note.tags : [],
+    isPublic: note ? note.isPublic : false,
     userId: session?.user.id,
   });
 
@@ -49,7 +50,7 @@ const CreateNoteForm: FC<CreateNoteProps> = ({ session }) => {
     mutationKey: ["createNote"],
     mutationFn: () => create_note(noteData),
     onSuccess: (data: NoteType) => {
-      router.push("/app/note/" + data.id);
+      router.push("/note/" + data.id);
     },
   });
 
@@ -64,7 +65,7 @@ const CreateNoteForm: FC<CreateNoteProps> = ({ session }) => {
         },
         placeholder: "Start typing or press tab for options...",
         inlineToolbar: true,
-        data: { blocks: [] },
+        data: noteData.content || { blocks: [] },
         tools: EditorJSConfig.tools,
         onChange: () => {
           setError(null);
@@ -174,7 +175,7 @@ const CreateNoteForm: FC<CreateNoteProps> = ({ session }) => {
           onValueChange={(val) =>
             setNoteData((prevState) => ({ ...prevState, tags: val }))
           }
-          value={noteData.tags}
+          value={noteData.tags || []}
         />
       </div>
 

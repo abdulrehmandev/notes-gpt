@@ -4,11 +4,11 @@ import { FC } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
-import { UserRound } from "lucide-react";
-// import { CldUploadButton } from "next-cloudinary";
 import { useMutation } from "react-query";
-// import type { CldUploadWidgetResults } from "next-cloudinary";
+import { CldUploadButton } from "next-cloudinary";
+import type { CldUploadWidgetResults } from "next-cloudinary";
 import type { Session } from "next-auth";
+import { UserRound } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/Avatar";
@@ -69,17 +69,17 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ session }) => {
     }
   };
 
-  // const handleImageUpload = (data: CldUploadWidgetResults) => {
-  //   if (
-  //     data.event !== "success" ||
-  //     typeof data.info == "string" ||
-  //     !data.info
-  //   ) {
-  //     toast.error("Failed to upload image.");
-  //     return;
-  //   }
-  //   updateAvatar(data.info?.secure_url);
-  // };
+  const handleImageUpload = (data: CldUploadWidgetResults) => {
+    if (
+      data.event !== "success" ||
+      typeof data.info == "string" ||
+      !data.info
+    ) {
+      toast.error("Failed to upload image.");
+      return;
+    }
+    updateAvatar(data.info?.secure_url);
+  };
 
   return (
     <Card>
@@ -98,13 +98,10 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ session }) => {
             </Avatar>
 
             <div className="space-y-2 flex flex-col items-center text-center">
-              {/* <Button size="sm" variant="outline">
-                Upload Image
-              </Button> */}
-{/*               <CldUploadButton
+              <CldUploadButton
                 onUpload={handleImageUpload}
                 uploadPreset="notesgpt-avatar"
-              > */}
+              >
                 <div
                   className={cn(
                     buttonVariants({ variant: "outline", size: "sm" })
@@ -112,7 +109,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ session }) => {
                 >
                   Upload Image
                 </div>
-{/*               </CldUploadButton> */}
+              </CldUploadButton>
               <button
                 className={cn(
                   linkVariants({ variant: "destructive", size: "xs" })

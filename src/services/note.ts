@@ -17,3 +17,8 @@ export async function get_public_notes_by_user_id(id: string) {
   const { data } = await axios.get("/api/note/public/" + id);
   return data as NoteType[];
 }
+
+export async function get_recent_notes() {
+  const { data } = await axios.get("/api/note/recents");
+  return data as NoteType[];
+}

@@ -17,6 +17,10 @@ const style = {
     fontSize: "0.875rem",
     lineHeight: "1.25rem",
     marginBottom: "1rem",
+    fontWeight: "600",
+    br: {
+      fontWeight: "bold",
+    },
   },
   checklist: {
     container: { marginBlock: "1rem", marginLeft: "1.5rem" },
@@ -42,11 +46,16 @@ const style = {
     author: {},
     message: {},
   },
-  linkTool: {
-    container: {},
+  linktool: {
+    container: {
+      marginBlock: "0.5rem",
+      boxShadow: "1px 1px 3px #eee",
+    },
     textHolder: {},
     title: {},
-    description: {},
+    description: {
+      fontSize: "13px",
+    },
     image: {},
     siteName: {},
   },

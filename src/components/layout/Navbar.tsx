@@ -158,7 +158,7 @@ const Navbar: FC<NavbarProps> = ({ session, type = "app" }) => {
                         <SidebarLink href={"#"} variant={"disabled"}>
                           <StickyNoteIcon className="w-4 h-4" /> All Notes
                         </SidebarLink>
-                        <Separator className="mt-3 mb-4" />
+                        {/* <Separator className="mt-3 mb-4" />
                         <nav className="flex flex-col gap-1 px-3">
                           <span className="mb-2 font-medium text-xs">
                             Teams
@@ -166,7 +166,7 @@ const Navbar: FC<NavbarProps> = ({ session, type = "app" }) => {
                           <SidebarLink href={"#"} variant={"disabled"}>
                             Team 1
                           </SidebarLink>
-                        </nav>
+                        </nav> */}
                       </>
                     )}
                   </nav>
