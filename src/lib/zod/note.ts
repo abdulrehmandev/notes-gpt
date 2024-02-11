@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { looseOptional } from "../helpers/zodHelpers";
 
 export const noteSchema = z.object({
   id: z.string().uuid(),
@@ -6,7 +7,7 @@ export const noteSchema = z.object({
   content: z.any(),
   userId: z.string(),
   isPublic: z.boolean(),
-  tags: z.array(z.string()),
+  tags: looseOptional(z.array(z.string())),
   createdAt: z.date(),
   updatedAt: z.date(),
 });

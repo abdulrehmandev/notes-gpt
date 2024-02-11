@@ -14,10 +14,9 @@ interface NoteProfileCardProps {
 }
 
 const NoteProfileCard: FC<NoteProfileCardProps> = ({ note }) => {
-  console.log(note.id);
   return (
     <Link href={`/note/${note.id}`}>
-      <Card>
+      <Card className="hover:shadow transition-shadow">
         <CardHeader>
           <CardTitle>{note.title}</CardTitle>
         </CardHeader>

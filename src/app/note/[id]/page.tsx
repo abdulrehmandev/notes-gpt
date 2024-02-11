@@ -19,6 +19,7 @@ import {
   TooltipContent,
 } from "@/components/ui/Tooltip";
 import Link from "@/components/ui/Link";
+import { Badge } from "@/components/ui/Badge";
 
 interface NotePageProps {
   params: {
@@ -66,9 +67,18 @@ const NotePage: FC<NotePageProps> = ({ params }) => {
   return (
     <main>
       <Container className="max-w-5xl mt-12">
-        <div className="flex items-center justify-between">
-          <h1 className="font-semibold text-4xl">{note.title}</h1>
-          <div className="flex items-center gap-5">
+        <div className="flex justify-between flex-col md:flex-row">
+          <div className="flex flex-col gap-5">
+            <h1 className="font-semibold text-4xl">{note.title}</h1>
+            {note.tags && (
+              <div className="flex gap-2 flex-wrap">
+                {note.tags.map((tg) => (
+                  <Badge variant={"default"}>{tg}</Badge>
+                ))}
+              </div>
+            )}
+          </div>
+          <div className="flex items-center gap-5 mt-3 md:mt-0 ml-auto">
             {session?.user.id === note.userId && (
               <>
                 <TooltipProvider>

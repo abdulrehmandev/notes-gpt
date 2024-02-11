@@ -15,7 +15,7 @@ interface RecentNoteProps {
 
 const RecentNote: FC<RecentNoteProps> = ({ note }) => {
   return (
-    <Link href={`/app/note/${note.id}`}>
+    <Link href={`/note/${note.id}`}>
       <Card className="md:max-w-xs max-w-[250px] min-w-[250px] md:min-w-[300px] hover:shadow">
         <CardHeader>
           <CardTitle className="truncate">{note.title}</CardTitle>
