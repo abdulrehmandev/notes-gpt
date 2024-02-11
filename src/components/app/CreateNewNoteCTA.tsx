@@ -7,7 +7,7 @@ const CreateNewNoteCTA = () => {
   return (
     <div className="bg-neutral-100 p-6 space-y-4 rounded-lg min-w-[600px]">
       <h5 className="font-semibold text-base">
-        You don't have any Note yet. Click below to create one
+        You don&apos;t have any Note yet. Click below to create one
       </h5>
       <Link
         href="/app/create"

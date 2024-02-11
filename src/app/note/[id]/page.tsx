@@ -72,8 +72,10 @@ const NotePage: FC<NotePageProps> = ({ params }) => {
             <h1 className="font-semibold text-4xl">{note.title}</h1>
             {note.tags && (
               <div className="flex gap-2 flex-wrap">
-                {note.tags.map((tg) => (
-                  <Badge variant={"default"}>{tg}</Badge>
+                {note.tags.map((tg: string) => (
+                  <Badge key={tg} variant={"default"}>
+                    {tg}
+                  </Badge>
                 ))}
               </div>
             )}
