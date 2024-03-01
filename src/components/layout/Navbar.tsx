@@ -7,7 +7,7 @@ import { signOut } from "next-auth/react";
 import type { Session } from "next-auth";
 import {
   Bell,
-  Bookmark,
+  BookmarkCheck,
   LogOut,
   Menu,
   Plus,
@@ -46,7 +46,7 @@ const Navbar: FC<NavbarProps> = ({ session, type = "app" }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   return (
-    <header className="w-full border-b bg-white">
+    <header className="w-full border-b bg-white fixed md:relative">
       <Container className="w-full flex items-center justify-between h-14">
         {type === "app" && !!session && (
           <Button
@@ -152,8 +152,8 @@ const Navbar: FC<NavbarProps> = ({ session, type = "app" }) => {
                         <SidebarLink href={"/app/create"} variant={"active"}>
                           <Plus className="w-4 h-4" /> Create
                         </SidebarLink>
-                        <SidebarLink href={"/app"} variant={"disabled"}>
-                          <Bookmark className="w-4 h-4" /> Bookmarks
+                        <SidebarLink href={"/app/bookmarks"}>
+                          <BookmarkCheck className="w-4 h-4" /> Bookmarks
                         </SidebarLink>
                         <SidebarLink href={"#"} variant={"disabled"}>
                           <StickyNoteIcon className="w-4 h-4" /> All Notes

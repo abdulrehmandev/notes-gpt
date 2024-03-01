@@ -23,6 +23,8 @@ interface BookmarkButtonProps extends ButtonProps {
 const BookmarkButton: React.FC<BookmarkButtonProps> = ({
   noteId,
   iconSize,
+  variant,
+  size,
   ...props
 }) => {
   const bookmarkQuery = useQuery(
@@ -54,8 +56,8 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({
       <Tooltip>
         <TooltipTrigger>
           <Button
-            variant="secondary"
-            size="icon"
+            variant={variant || "secondary"}
+            size={size || "icon"}
             onClick={() => {
               if (bookmarkQuery.data) {
                 deleteBookmarkMutation.mutate();
