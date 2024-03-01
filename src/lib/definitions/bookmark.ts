@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { NoteType } from "./note";
 
 export const bookmarkSchema = z.object({
   id: z.string().uuid(),
@@ -7,3 +8,11 @@ export const bookmarkSchema = z.object({
   created_at: z.date(),
 });
 export type BookmarkType = z.infer<typeof bookmarkSchema>;
+
+export type BookmarkedNotesFeed = {
+  data: NoteType[];
+  metadata: {
+    hasNextPage: boolean;
+    totalPages: number;
+  };
+};

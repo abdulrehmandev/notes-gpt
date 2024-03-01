@@ -20,7 +20,7 @@ import { Checkbox } from "../ui/Checkbox";
 import { Label } from "../ui/Label";
 import Link from "../ui/Link";
 import { Alert, AlertTitle } from "../ui/Alert";
-import { signInSchema, SignInType } from "@/lib/zod/auth";
+import { signInSchema, SignInType } from "@/lib/definitions/auth";
 
 interface SignInFormProps {}
 

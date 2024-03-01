@@ -2,7 +2,7 @@ import { z } from "zod";
 
 import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { noteSchema } from "@/lib/zod/note";
+import { noteSchema } from "@/lib/definitions/note";
 
 export async function POST(req: Request) {
   try {

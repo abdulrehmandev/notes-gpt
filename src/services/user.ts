@@ -1,4 +1,4 @@
-import { UserDetailsType, UserType } from "@/lib/zod/user";
+import { UserDetailsType, UserType } from "@/lib/definitions/user";
 import axios from "axios";
 
 export async function get_user_details(username: string) {

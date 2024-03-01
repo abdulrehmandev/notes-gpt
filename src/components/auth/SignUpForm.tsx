@@ -20,7 +20,7 @@ import { Input } from "../ui/Input";
 import { Button } from "../ui/Button";
 import Link from "../ui/Link";
 import { Alert, AlertTitle } from "../ui/Alert";
-import { signUpSchema, SignUpType } from "@/lib/zod/auth";
+import { signUpSchema, SignUpType } from "@/lib/definitions/auth";
 
 interface SignUpFormProps {}
 

@@ -1,7 +1,14 @@
 import { appSidebarNavigation } from "@/data";
 import React from "react";
 import SidebarLink from "../shared/SidebarLink";
-import { Bookmark, Home, Plus, StickyNoteIcon, User } from "lucide-react";
+import {
+  Bookmark,
+  BookmarkCheck,
+  Home,
+  Plus,
+  StickyNoteIcon,
+  User,
+} from "lucide-react";
 import { Separator } from "../ui/Separator";
 
 interface AppSidebarProps {}
@@ -13,8 +20,8 @@ const AppSidebar: React.FC<AppSidebarProps> = ({}) => {
         <SidebarLink href={"/app/create"} variant={"active"}>
           <Plus className="w-4 h-4" /> Create
         </SidebarLink>
-        <SidebarLink href={"/app"} variant={"disabled"}>
-          <Bookmark className="w-4 h-4" /> Bookmarks
+        <SidebarLink href={"/app/bookmarks"}>
+          <BookmarkCheck className="w-4 h-4" /> Bookmarks
         </SidebarLink>
         <SidebarLink href={"/app/note"}>
           <StickyNoteIcon className="w-4 h-4" /> All Notes

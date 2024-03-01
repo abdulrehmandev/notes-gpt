@@ -76,10 +76,37 @@ export async function GET(req: Request) {
       return new Response("Unauthorized", { status: 401 });
     }
 
+    const { searchParams } = new URL(req.url);
+    const take = Number(searchParams.get("take")) || 5;
+    const skip = Number(searchParams.get("page")) * take - take || 0;
+
     const bookmarks = await db.bookmark.findMany({
-      where: { userId: session.user.id },
+      skip,
+      take,
+      where: {
+        userId: session.user.id,
+      },
+      select: {
+        note: true,
+      },
+      orderBy: {
+        createdAt: "asc",
+      },
     });
-    return new Response(JSON.stringify(bookmarks), { status: 200 });
+    const bookmarkedNotes = bookmarks.map((bookmark) => bookmark.note);
+
+    const total = await db.bookmark.count();
+
+    return new Response(
+      JSON.stringify({
+        data: bookmarkedNotes,
+        metadata: {
+          hasNextPage: skip + take < total,
+          totalPages: Math.ceil(total / take),
+        },
+      }),
+      { status: 200 }
+    );
   } catch (error) {
     return new Response("Internal Server Error", { status: 500 });
   }

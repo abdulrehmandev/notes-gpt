@@ -1,4 +1,4 @@
-import { NoteType } from "@/lib/zod/note";
+import { NoteType } from "@/lib/definitions/note";
 import axios from "axios";
 
 export async function create_note(

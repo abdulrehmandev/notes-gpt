@@ -1,14 +1,7 @@
+import GPTCreditsCard from "@/components/app/GPTCreditsCard";
 import Container from "@/components/layout/Container";
-import AllNotesPagination from "@/components/note/AllNotesPagination";
+import AllNotesPagination from "@/components/note/NotesPagination";
 import NoteProfileCard from "@/components/note/NoteProfileCard";
-import { Button } from "@/components/ui/Button";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/Card";
 import { Pagination } from "@/components/ui/Pagination";
 import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
@@ -36,22 +29,7 @@ const NotesPage = async () => {
           </div>
           <AllNotesPagination />
         </div>
-        <Card className="h-fit">
-          <CardHeader>
-            <CardTitle>GPT Credits</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p>Available Credits: 121</p>
-          </CardContent>
-          <CardFooter className="gap-3">
-            <Button size="sm" variant="secondary">
-              View Details
-            </Button>
-            <Button variant="primary" size="sm">
-              Buy More
-            </Button>
-          </CardFooter>
-        </Card>
+        <GPTCreditsCard />
       </Container>
     </main>
   );

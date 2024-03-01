@@ -13,7 +13,7 @@ import { useMutation } from "react-query";
 import type EditorJS from "@editorjs/editorjs";
 import type { Session } from "next-auth";
 
-import { NoteType } from "@/lib/zod/note";
+import { NoteType } from "@/lib/definitions/note";
 import { Button } from "../ui/Button";
 import { create_note } from "@/services/note";
 import { Alert } from "../ui/Alert";

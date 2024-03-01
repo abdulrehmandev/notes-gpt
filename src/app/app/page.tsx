@@ -17,7 +17,7 @@ const AppPage = async () => {
           </h1>
         </div>
         <RecentlyCreatedNotes />
-        {/* <RecentBookmarkNotes /> */}
+        <RecentBookmarkNotes />
       </Container>
     </main>
   );

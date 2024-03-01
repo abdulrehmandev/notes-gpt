@@ -6,11 +6,12 @@ import { useQuery } from "react-query";
 import RecentNote from "../note/RecentNote";
 import { Skeleton } from "../ui/Skeleton";
 import CreateNewNoteCTA from "./CreateNewNoteCTA";
+import { get_bookmarks } from "@/services/bookmark";
 
 const RecentBookmarkNotes = () => {
-  const notes = useQuery("notes", get_recent_notes, { retry: false });
+  const notes = useQuery("notes", () => get_bookmarks(), { retry: false });
 
-  if (!notes.isLoading && notes.data?.length === 0) {
+  if (!notes.isLoading && (!notes.data || notes.data?.data.length === 0)) {
     return null;
   }
 
@@ -28,10 +29,12 @@ const RecentBookmarkNotes = () => {
               </div>
             </div>
           ))
-        ) : notes.data?.length === 0 ? (
+        ) : notes.data?.data.length === 0 ? (
           <CreateNewNoteCTA />
         ) : (
-          notes.data?.map((note) => <RecentNote note={note} key={note.id} />)
+          notes.data?.data.map((note) => (
+            <RecentNote note={note} key={note.id} />
+          ))
         )}
       </div>
     </div>
