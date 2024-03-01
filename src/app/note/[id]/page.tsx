@@ -3,13 +3,13 @@
 import { FC } from "react";
 import { useQuery } from "react-query";
 import { notFound } from "next/navigation";
+import NextLink from "next/link";
+import { useSession } from "next-auth/react";
 import { Globe, Loader, Lock } from "lucide-react";
 
 import { get_note_by_id } from "@/services/note";
 import Container from "@/components/layout/Container";
 import NoteOutput from "@/components/note/NoteOutput";
-import { useSession } from "next-auth/react";
-import NextLink from "next/link";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/Button";
 import {
@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/Tooltip";
 import Link from "@/components/ui/Link";
 import { Badge } from "@/components/ui/Badge";
+import BookmarkButton from "@/components/note/BookmarkButton";
 
 interface NotePageProps {
   params: {
@@ -101,6 +102,8 @@ const NotePage: FC<NotePageProps> = ({ params }) => {
                     </TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
+
+                <BookmarkButton noteId={params.id} />
 
                 <NextLink
                   href={`/app/note/${note.id}/edit`}
