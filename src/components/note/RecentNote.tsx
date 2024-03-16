@@ -22,9 +22,9 @@ const RecentNote: FC<RecentNoteProps> = ({ note }) => {
         </CardHeader>
         <CardContent>
           <CardDescription className="truncate">
-            {note.content.blocks[0].data.text ||
-              note.content.blocks[0].data.link ||
-              note.content.blocks[0].data.items[0].text}
+            {note.content.blocks[0]?.data?.text ||
+              note.content.blocks[0]?.data?.link ||
+              note.content.blocks[0]?.data?.items[0].text}
           </CardDescription>
           <p className="w-fit mt-2 ml-auto text-xs text-zinc-400">
             {new Date(note.createdAt).toLocaleDateString()}{" "}

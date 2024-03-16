@@ -11,7 +11,7 @@ import {
 
 const GPTCreditsCard = () => {
   return (
-    <Card className="h-fit">
+    <Card className="h-fit hidden md:block">
       <CardHeader>
         <CardTitle>GPT Credits</CardTitle>
       </CardHeader>

@@ -95,7 +95,9 @@ export async function GET(req: Request) {
     });
     const bookmarkedNotes = bookmarks.map((bookmark) => bookmark.note);
 
-    const total = await db.bookmark.count();
+    const total = await db.bookmark.count({
+      where: { userId: session.user.id },
+    });
 
     return new Response(
       JSON.stringify({

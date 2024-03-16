@@ -12,3 +12,11 @@ export const noteSchema = z.object({
   updatedAt: z.date(),
 });
 export type NoteType = z.infer<typeof noteSchema>;
+
+export type NotesFeedType = {
+  data: NoteType[];
+  metadata: {
+    hasNextPage: boolean;
+    totalPages: number;
+  };
+};

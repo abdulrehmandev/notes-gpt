@@ -61,8 +61,7 @@ const NotePage: FC<NotePageProps> = async ({ params }) => {
   return (
     <main className="py-4">
       <Container removeStyles>
-        Notes Update Comming Soon!
-        {/* <CreateNoteForm note={note} session={session} /> */}
+        <CreateNoteForm note={note} session={session} />
       </Container>
     </main>
   );

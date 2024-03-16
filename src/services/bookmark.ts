@@ -1,5 +1,6 @@
 import axios from "axios";
-import { BookmarkType, BookmarkedNotesFeed } from "@/lib/definitions/bookmark";
+import { BookmarkType } from "@/lib/definitions/bookmark";
+import { NotesFeedType } from "@/lib/definitions/note";
 
 export async function create_bookmark(noteId: string) {
   const { data } = await axios.post("/api/bookmark", { noteId });
@@ -13,7 +14,7 @@ export async function delete_bookmark(noteId: string) {
 
 export async function get_bookmarks(page: number = 1, take: number = 5) {
   const { data } = await axios.get(`/api/bookmark?page=${page}&take=${take}`);
-  return data as BookmarkedNotesFeed;
+  return data as NotesFeedType;
 }
 
 export async function get_bookmark_by_note_id(noteId: string) {

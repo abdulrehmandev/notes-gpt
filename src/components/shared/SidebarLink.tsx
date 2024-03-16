@@ -9,9 +9,9 @@ export const appNavLinkVariants = cva(
   {
     variants: {
       variant: {
-        default: "text-zinc-950 hover:text-blue-500 hoveer:bg-zinc-100/60",
+        default: "text-zinc-950 hover:text-blue-500",
         disabled: "text-zinc-300 cursor-not-allowed",
-        active: "text-blue-500 bg-zinc-100/50 hover:bg-zinc-100/70",
+        active: "text-blue-500 bg-zinc-100 hover:bg-zinc-200/50",
       },
     },
     defaultVariants: {

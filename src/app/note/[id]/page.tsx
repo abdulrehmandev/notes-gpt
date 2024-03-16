@@ -106,7 +106,7 @@ const NotePage: FC<NotePageProps> = ({ params }) => {
                 <BookmarkButton noteId={params.id} />
 
                 <NextLink
-                  href={`/app/note/${note.id}/edit`}
+                  href={`/app/note/${note.id}`}
                   className={cn(buttonVariants({ variant: "secondary" }))}
                 >
                   Edit Note
