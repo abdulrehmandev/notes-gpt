@@ -5,6 +5,7 @@ import SidebarLink from "../shared/SidebarLink";
 import {
   Bell,
   BookmarkCheck,
+  BrainCircuit,
   LogOut,
   Plus,
   Settings,
@@ -42,6 +43,9 @@ const AppNavigationContent: FC<AppNavigationContentProps> = ({ session }) => {
         </SidebarLink>
         <SidebarLink href={"/app/bookmarks"}>
           <BookmarkCheck className="w-4 h-4" /> Bookmarks
+        </SidebarLink>
+        <SidebarLink href={"/app/ai"}>
+          <BrainCircuit className="w-4 h-4" /> Your AI
         </SidebarLink>
         <span className="h-3" />
         <SidebarLink href={"/app/notifications"}>

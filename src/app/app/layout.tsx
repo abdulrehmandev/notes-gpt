@@ -19,7 +19,7 @@ const AppLayout: FC<AppLayoutProps> = async ({ children }) => {
     <main>
       <div className="flex w-full px-0">
         <AppSidebar session={session} />
-        <div className="w-full md:py-4 md:pl-72">
+        <div className="w-full md:pl-72">
           <AppNavbar session={session} />
           <div className="flex overflow-auto w-full">{children}</div>
         </div>

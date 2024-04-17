@@ -165,7 +165,7 @@ const CreateNoteForm: FC<CreateNoteProps> = ({ session, note }) => {
         />
         <div
           id="editor"
-          className="py-4 w-full pl-2 md:pl-6 lg:pl-12 px-2 md:px-4"
+          className="py-4 w-fit pl-2 md:pl-6 lg:pl-12 px-2 md:px-4"
         />
         <Button
           className="hidden md:flex mr-auto ml-2 md:ml-6 lg:ml-12 mt-6"

@@ -32,6 +32,6 @@ export async function update_note(
 }
 
 export async function get_notes(page: number = 1, take: number = 5) {
-  const { data } = await axios.get(`/api/bookmark?page=${page}&take=${take}`);
+  const { data } = await axios.get(`/api/note?page=${page}&take=${take}`);
   return data as NotesFeedType;
 }

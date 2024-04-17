@@ -2,33 +2,8 @@
 
 import React, { FC } from "react";
 import Container from "./Container";
-import { appNavigation } from "@/data";
-import { getInitials } from "@/lib/helpers/stringsFormat";
-import { Avatar, AvatarImage, AvatarFallback } from "../ui/Avatar";
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-} from "../ui/Dropdown";
-import {
-  Plus,
-  BookmarkCheck,
-  StickyNoteIcon,
-  Bell,
-  Users,
-  UserRound,
-  Link,
-  User,
-  Settings,
-  LogOut,
-  Menu,
-} from "lucide-react";
-import { signOut } from "next-auth/react";
-import SidebarLink from "../shared/SidebarLink";
+import { Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetPortal, SheetTrigger } from "../ui/Sheet";
-// import { usePathname } from "next/navigation";
 import type { Session } from "next-auth";
 import { Button } from "../ui/Button";
 import Logo from "../shared/Logo";
@@ -39,14 +14,11 @@ interface AppNavbarProps {
 }
 
 const AppNavbar: FC<AppNavbarProps> = ({ session }) => {
-  //   const pathname = usePathname();
-  //   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-
   return (
     <header className="w-full border-b bg-white md:hidden">
       <Container className="w-full flex items-center justify-between h-14">
         <Sheet>
-          <SheetTrigger>
+          <SheetTrigger asChild>
             <Button size="icon" variant="ghost">
               <Menu className="w-5 h-5" />
             </Button>

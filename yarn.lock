@@ -1503,6 +1503,11 @@ domutils@^3.0.1:
     domelementtype "^2.3.0"
     domhandler "^5.0.3"
 
+editorjs-html@^3.4.3:
+  version "3.4.3"
+  resolved "https://registry.yarnpkg.com/editorjs-html/-/editorjs-html-3.4.3.tgz#81c089ba69df3a702a7535ec34ee276a6444668e"
+  integrity sha512-HMqQ3BCE98uhSpJsbfH0c3CoMctUMCHlap2Eq/7/VjaHas+g3IJqyf+ERtMByoQCzvcW22ISYaZEeE7rGkd8Xg==
+
 editorjs-react-renderer@^3.5.1:
   version "3.5.1"
   resolved "https://registry.yarnpkg.com/editorjs-react-renderer/-/editorjs-react-renderer-3.5.1.tgz#18200f082afd2c01f609b8e3d842445b93eb29b4"

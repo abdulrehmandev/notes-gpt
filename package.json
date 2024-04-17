@@ -38,6 +38,7 @@
     "bcrypt": "^5.1.1",
     "class-variance-authority": "^0.7.0",
     "cloudinary": "^1.41.2",
+    "editorjs-html": "^3.4.3",
     "editorjs-react-renderer": "^3.5.1",
     "lucide-react": "^0.298.0",
     "nanoid": "^5.0.4",
