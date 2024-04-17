@@ -43,7 +43,7 @@ const AppPage = () => {
             ) : (
               <div className="p-4 rounded-lg border -mt-6">
                 <h4 className="text-xl font-semibold">
-                  Let's create your first Note!
+                  Let&apos;s create your first Note!
                 </h4>
                 <p className="text-zinc-500 mt-3 text-sm">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
