@@ -14,12 +14,12 @@ const NotificationsPage: React.FC<NotificationsPageProps> = async ({}) => {
     return redirect("/auth/sign-in");
   }
   return (
-    <main className="py-6">
-      <Container className="max-w-4xl">
-        <h2 className="font-semibold text-xl tracking-tighter">
-          Notifications
-        </h2>
-        <div className="space-y-4 mt-4">
+    <main className="py-4 w-full">
+      <h1 className="tracking-tighter font-medium text-4xl mb-8 ml-4 md:ml-6">
+        Notifications
+      </h1>
+      <Container className="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div className="mt-4 col-span-3">
           <NotificationsSection session={session} />
         </div>
       </Container>

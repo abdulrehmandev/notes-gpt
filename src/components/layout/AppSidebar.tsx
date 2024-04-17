@@ -1,32 +1,19 @@
-import { appSidebarNavigation } from "@/data";
 import React from "react";
 import SidebarLink from "../shared/SidebarLink";
-import { Bookmark, Home, Plus, StickyNoteIcon, User } from "lucide-react";
-import { Separator } from "../ui/Separator";
+import { Bell, BookmarkCheck, Plus, StickyNoteIcon, Users } from "lucide-react";
+import Logo from "../shared/Logo";
+import AppNavigationContent from "./AppNavigationContent";
+import { Session } from "next-auth";
 
-interface AppSidebarProps {}
+interface AppSidebarProps {
+  session: Session;
+}
 
-const AppSidebar: React.FC<AppSidebarProps> = ({}) => {
+const AppSidebar: React.FC<AppSidebarProps> = ({ session }) => {
   return (
-    <aside className="hidden md:block h-[calc(100vh-80px)] w-60 border-r py-3 px-3">
-      <nav className="flex flex-col gap-1">
-        <SidebarLink href={"/app/create"} variant={"active"}>
-          <Plus className="w-4 h-4" /> Create
-        </SidebarLink>
-        <SidebarLink href={"/app"} variant={"disabled"}>
-          <Bookmark className="w-4 h-4" /> Bookmarks
-        </SidebarLink>
-        <SidebarLink href={"/app/note"}>
-          <StickyNoteIcon className="w-4 h-4" /> All Notes
-        </SidebarLink>
-      </nav>
-      {/* <Separator className="mt-3 mb-4" />
-      <nav className="flex flex-col gap-1">
-        <span className="mb-2 font-medium text-xs">Teams</span>
-        <SidebarLink href={"#"} variant={"disabled"}>
-          Team 1
-        </SidebarLink>
-      </nav> */}
+    <aside className="bg-zinc-100/70 hidden fixed md:block h-screen w-72 py-3 px-3 overflow-hidden">
+      <Logo className="mt-2 ml-3 mb-4" />
+      <AppNavigationContent session={session} />
     </aside>
   );
 };

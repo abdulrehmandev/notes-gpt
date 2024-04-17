@@ -13,15 +13,16 @@ import { useMutation } from "react-query";
 import type EditorJS from "@editorjs/editorjs";
 import type { Session } from "next-auth";
 
-import { NoteType } from "@/lib/zod/note";
+import { NoteType } from "@/lib/definitions/note";
 import { Button } from "../ui/Button";
-import { create_note } from "@/services/note";
+import { create_note, update_note } from "@/services/note";
 import { Alert } from "../ui/Alert";
 import { EditorJSConfig } from "@/lib/editorjs-tools";
 import { Separator } from "../ui/Separator";
 import { TagInput } from "./Tag";
 import { Label } from "../ui/Label";
 import { Switch } from "../ui/Switch";
+import { toast } from "sonner";
 
 interface CreateNoteProps {
   session: Session;
@@ -53,6 +54,16 @@ const CreateNoteForm: FC<CreateNoteProps> = ({ session, note }) => {
       router.push("/note/" + data.id);
     },
   });
+
+  const updateNoteMutation = useMutation(
+    ["updateNote"],
+    () => update_note(note?.id!, noteData),
+    {
+      onSuccess: () => {
+        toast.success("Note updated successfully!");
+      },
+    }
+  );
 
   const initEditor = useCallback(async () => {
     const EditorJS = (await import("@editorjs/editorjs")).default;
@@ -110,14 +121,17 @@ const CreateNoteForm: FC<CreateNoteProps> = ({ session, note }) => {
       return;
     }
 
-    setNoteData((prevState) => ({ ...prevState, content: blocks }));
+    if (note?.id) {
+      afterStateUpdate(blocks, updateNoteMutation.mutate);
+    } else {
+      afterStateUpdate(blocks, createNote);
+    }
   };
 
-  useEffect(() => {
-    if (noteData.content.blocks?.length > 0) {
-      createNote();
-    }
-  }, [noteData.content]);
+  const afterStateUpdate = (data: any, callback: any) => {
+    setNoteData((prevState) => ({ ...prevState, content: data }));
+    callback && callback();
+  };
 
   if (!isMounted) {
     return null;
@@ -125,11 +139,11 @@ const CreateNoteForm: FC<CreateNoteProps> = ({ session, note }) => {
 
   return (
     <form
-      className="flex flex-col md:flex-row gap-4 p-4 pr-4 md:pr-6"
+      className="flex flex-col md:flex-row gap-4 py-4 pr-4 md:pr-6"
       onSubmit={handleSubmit}
       onChange={() => setError(null)}
     >
-      <div className="w-full flex flex-col max-w-5xl">
+      <div className="w-full flex flex-col md:max-w-5xl">
         {error && (
           <Alert
             variant={"destructive"}
@@ -151,11 +165,11 @@ const CreateNoteForm: FC<CreateNoteProps> = ({ session, note }) => {
         />
         <div
           id="editor"
-          className="min-h-[300px] py-4 w-full pl-2 md:pl-6 lg:pl-12 px-2 md:px-4"
+          className="py-4 w-fit pl-2 md:pl-6 lg:pl-12 px-2 md:px-4"
         />
         <Button
           className="hidden md:flex mr-auto ml-2 md:ml-6 lg:ml-12 mt-6"
-          loading={isLoading}
+          loading={isLoading || updateNoteMutation.isLoading}
         >
           Save
         </Button>
@@ -179,7 +193,10 @@ const CreateNoteForm: FC<CreateNoteProps> = ({ session, note }) => {
         />
       </div>
 
-      <Button className="md:hidden mr-auto" loading={isLoading}>
+      <Button
+        className="md:hidden mr-auto"
+        loading={isLoading || updateNoteMutation.isLoading}
+      >
         Save
       </Button>
     </form>

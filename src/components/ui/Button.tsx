@@ -51,12 +51,20 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const Comp = asChild ? Slot : "button";
 
     if (loading === true) {
-      props.children = <Loader className="mx-auto w-4 h-4 animate-spin" />;
+      props.children = (
+        <div className="flex gap-2 w-fit mx-auto justify-center items-center">
+          <Loader className="mx-auto w-4 h-4 animate-spin" />
+          <span className="opacity-70">{props.children}</span>
+        </div>
+      );
     }
 
     return (
       <Comp
-        className={cn(buttonVariants({ variant, size, className }))}
+        className={cn(
+          buttonVariants({ variant, size, className }),
+          loading ? "cursor-not-allowed" : ""
+        )}
         ref={ref}
         disabled={loading}
         {...props}

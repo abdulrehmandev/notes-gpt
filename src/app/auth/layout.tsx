@@ -17,7 +17,7 @@ const AuthLayout: FC<AuthLayoutProps> = ({ children }) => {
       <nav className="w-full py-6">
         <div className="container max-w-5xl">
           <NextLink
-            href="/app"
+            href="/"
             className={cn(
               buttonVariants({ variant: "ghost", className: "gap-2" })
             )}
@@ -29,7 +29,7 @@ const AuthLayout: FC<AuthLayoutProps> = ({ children }) => {
 
       {children}
 
-      {/* footer */}
+      {/* footer
       <footer className="absolute bottom-0 w-full pt-2 pb-3 border-t">
         <nav className="flex items-center flex-wrap justify-center gap-4 md:gap-8 container max-w-5xl">
           <Link href="#" size="xs" text="Explore" />
@@ -37,7 +37,7 @@ const AuthLayout: FC<AuthLayoutProps> = ({ children }) => {
           <Link href="#" size="xs" text="About NotesGPT" />
           <Link href="#" size="xs" text="Community" />
         </nav>
-      </footer>
+      </footer> */}
     </div>
   );
 };

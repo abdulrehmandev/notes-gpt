@@ -24,7 +24,7 @@ import {
 } from "../ui/Form";
 import { linkVariants } from "../ui/Link";
 import { update_user_avatar, update_user_username } from "@/services/user";
-import { UsernameType, usernameSchema } from "@/lib/zod/user";
+import { UsernameType, usernameSchema } from "@/lib/definitions/user";
 import { Input } from "../ui/Input";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/Card";
 import { Separator } from "../ui/Separator";

@@ -2,7 +2,7 @@ import { z } from "zod";
 import bcrypt from "bcrypt";
 
 import { db } from "@/lib/db";
-import { signUpSchema } from "@/lib/zod/auth";
+import { signUpSchema } from "@/lib/definitions/auth";
 
 export async function POST(req: Request) {
   try {

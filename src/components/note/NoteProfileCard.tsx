@@ -1,4 +1,4 @@
-import { NoteType } from "@/lib/zod/note";
+import { NoteType } from "@/lib/definitions/note";
 import Link from "next/link";
 import { FC } from "react";
 import {

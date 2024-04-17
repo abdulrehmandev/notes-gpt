@@ -10,8 +10,8 @@ const CreateNotePage = async () => {
   }
 
   return (
-    <main className="py-4">
-      <Container removeStyles>
+    <main className="py-4 w-full">
+      <Container className="max-w-full" removeStyles>
         <CreateNoteForm session={session} />
       </Container>
     </main>

@@ -8,7 +8,7 @@ import { toast } from "sonner";
 import type { Session } from "next-auth";
 
 import { Card, CardHeader, CardTitle, CardContent } from "../ui/Card";
-import { UserDetailsType, userDetailsSchema } from "@/lib/zod/user";
+import { UserDetailsType, userDetailsSchema } from "@/lib/definitions/user";
 import {
   Form,
   FormControl,
