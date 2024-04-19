@@ -4,11 +4,11 @@ import { FC } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
-import { UserRound } from "lucide-react";
-import { CldUploadButton } from "next-cloudinary";
 import { useMutation } from "react-query";
+import { CldUploadButton } from "next-cloudinary";
 import type { CldUploadWidgetResults } from "next-cloudinary";
 import type { Session } from "next-auth";
+import { UserRound } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/Avatar";
@@ -24,7 +24,7 @@ import {
 } from "../ui/Form";
 import { linkVariants } from "../ui/Link";
 import { update_user_avatar, update_user_username } from "@/services/user";
-import { UsernameType, usernameSchema } from "@/lib/zod/user";
+import { UsernameType, usernameSchema } from "@/lib/definitions/user";
 import { Input } from "../ui/Input";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/Card";
 import { Separator } from "../ui/Separator";
@@ -98,9 +98,6 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ session }) => {
             </Avatar>
 
             <div className="space-y-2 flex flex-col items-center text-center">
-              {/* <Button size="sm" variant="outline">
-                Upload Image
-              </Button> */}
               <CldUploadButton
                 onUpload={handleImageUpload}
                 uploadPreset="notesgpt-avatar"

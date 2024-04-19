@@ -12,7 +12,7 @@ const ProfilePage: FC<ProfilePageProps> = async ({ children }) => {
 
   return (
     <>
-      <Navbar type="home" session={session} />
+      <Navbar session={session} />
       <div className="pb-8">{children}</div>
     </>
   );

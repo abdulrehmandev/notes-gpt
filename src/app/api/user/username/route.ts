@@ -1,6 +1,6 @@
 import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { usernameSchema } from "@/lib/zod/user";
+import { usernameSchema } from "@/lib/definitions/user";
 import { z } from "zod";
 
 // UPDATE username

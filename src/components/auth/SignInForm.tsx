@@ -20,7 +20,7 @@ import { Checkbox } from "../ui/Checkbox";
 import { Label } from "../ui/Label";
 import Link from "../ui/Link";
 import { Alert, AlertTitle } from "../ui/Alert";
-import { signInSchema, SignInType } from "@/lib/zod/auth";
+import { signInSchema, SignInType } from "@/lib/definitions/auth";
 
 interface SignInFormProps {}
 
@@ -91,11 +91,11 @@ const SignInForm: FC<SignInFormProps> = ({}) => {
             </FormItem>
           )}
         />
-        <Link
+        {/* <Link
           href="#"
           className="block text-xs ml-auto"
           text="Forgot your password?"
-        />
+        /> */}
 
         <div className="flex items-center space-x-2">
           <Checkbox id="rememberMe" />

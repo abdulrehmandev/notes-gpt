@@ -6,7 +6,7 @@ const HomeLayout = async ({ children }: { children: React.ReactNode }) => {
 
   return (
     <div>
-      <Navbar type="home" session={session} />
+      <Navbar session={session} />
       {children}
     </div>
   );

@@ -1,24 +1,25 @@
-"use client";
-
 import { FC } from "react";
-import { useQuery } from "react-query";
+// import { useQuery } from "react-query";
 import { notFound } from "next/navigation";
-import { Globe, Loader, Lock } from "lucide-react";
+// import { Globe, Loader, Lock } from "lucide-react";
 
 import { get_note_by_id } from "@/services/note";
 import Container from "@/components/layout/Container";
-import NoteOutput from "@/components/note/NoteOutput";
-import { useSession } from "next-auth/react";
-import NextLink from "next/link";
-import { cn } from "@/lib/utils";
-import { buttonVariants } from "@/components/ui/Button";
-import {
-  TooltipProvider,
-  Tooltip,
-  TooltipTrigger,
-  TooltipContent,
-} from "@/components/ui/Tooltip";
+// import NoteOutput from "@/components/note/NoteOutput";
+// import { useSession } from "next-auth/react";
+// import NextLink from "next/link";
+// import { cn } from "@/lib/utils";
+// import { buttonVariants } from "@/components/ui/Button";
+// import {
+//   TooltipProvider,
+//   Tooltip,
+//   TooltipTrigger,
+//   TooltipContent,
+// } from "@/components/ui/Tooltip";
 import Link from "@/components/ui/Link";
+import CreateNoteForm from "@/components/note/CreateNoteForm";
+import { getAuthSession } from "@/lib/auth";
+import { db } from "@/lib/db";
 
 interface NotePageProps {
   params: {
@@ -26,25 +27,19 @@ interface NotePageProps {
   };
 }
 
-const NotePage: FC<NotePageProps> = ({ params }) => {
-  const { data: session } = useSession();
-  const { data: note, isFetched } = useQuery(
-    "getNoteById",
-    () => get_note_by_id(params.id),
-    {
-      retry: false,
-    }
-  );
-
-  if (!isFetched) {
-    return <Loader className="mx-auto mt-20 animate-spin" />;
-  }
+const NotePage: FC<NotePageProps> = async ({ params }) => {
+  const session = await getAuthSession();
+  const note = await db.note.findUnique({
+    where: {
+      id: params.id,
+    },
+  });
 
   if (!note) {
     return notFound();
   }
 
-  if (!note.isPublic && session?.user.id !== note.userId) {
+  if (!session?.user.id) {
     return (
       <main>
         <Container className="max-w-5xl mt-12">
@@ -64,40 +59,9 @@ const NotePage: FC<NotePageProps> = ({ params }) => {
   }
 
   return (
-    <main>
-      <Container className="max-w-5xl mt-12">
-        <div className="flex items-center justify-between">
-          <h1 className="font-semibold text-4xl">{note.title}</h1>
-          <div className="flex items-center gap-5">
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger>
-                  {note.isPublic ? (
-                    <Globe className="h-5 w-5 text-zinc-500" />
-                  ) : (
-                    <Lock className="h-5 w-5 text-zinc-500" />
-                  )}
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>
-                    {note.isPublic
-                      ? "Everyone with the link can view"
-                      : "Only you can see this note"}
-                  </p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-            {session?.user.id === note.userId && (
-              <NextLink
-                href={`/app/note/${note.id}/edit`}
-                className={cn(buttonVariants({ variant: "secondary" }))}
-              >
-                Edit Note
-              </NextLink>
-            )}
-          </div>
-        </div>
-        {!!note.content && <NoteOutput content={note.content} />}
+    <main className="py-4">
+      <Container removeStyles>
+        <CreateNoteForm note={note} session={session} />
       </Container>
     </main>
   );

@@ -5,13 +5,13 @@ import { usePathname } from "next/navigation";
 import SidebarLink from "../shared/SidebarLink";
 
 const settingLinks = [
-  { href: "/user/settings/account", text: "Account" },
-  { href: "/user/settings/security", text: "Security", disabled: true },
-  {
-    href: "/user/settings/notifications",
-    text: "Notifications",
-    disabled: true,
-  },
+  { href: "/user/settings/account", text: "Account", disabled: false },
+  // { href: "/user/settings/security", text: "Security", disabled: true },
+  // {
+  //   href: "/user/settings/notifications",
+  //   text: "Notifications",
+  //   disabled: true,
+  // },
 ];
 
 const SettingsSidebarContent = () => {

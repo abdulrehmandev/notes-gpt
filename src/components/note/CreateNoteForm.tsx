@@ -13,21 +13,23 @@ import { useMutation } from "react-query";
 import type EditorJS from "@editorjs/editorjs";
 import type { Session } from "next-auth";
 
-import { NoteType } from "@/lib/zod/note";
+import { NoteType } from "@/lib/definitions/note";
 import { Button } from "../ui/Button";
-import { create_note } from "@/services/note";
+import { create_note, update_note } from "@/services/note";
 import { Alert } from "../ui/Alert";
 import { EditorJSConfig } from "@/lib/editorjs-tools";
 import { Separator } from "../ui/Separator";
 import { TagInput } from "./Tag";
 import { Label } from "../ui/Label";
 import { Switch } from "../ui/Switch";
+import { toast } from "sonner";
 
 interface CreateNoteProps {
   session: Session;
+  note?: NoteType;
 }
 
-const CreateNoteForm: FC<CreateNoteProps> = ({ session }) => {
+const CreateNoteForm: FC<CreateNoteProps> = ({ session, note }) => {
   const ref = useRef<EditorJS>();
 
   const router = useRouter();
@@ -38,10 +40,10 @@ const CreateNoteForm: FC<CreateNoteProps> = ({ session }) => {
   const [noteData, setNoteData] = useState<
     Pick<NoteType, "title" | "content" | "userId" | "tags" | "isPublic">
   >({
-    title: "",
-    content: {},
-    tags: [],
-    isPublic: false,
+    title: note ? note.title : "",
+    content: note ? note.content : { blocks: [] },
+    tags: note ? note.tags : [],
+    isPublic: note ? note.isPublic : false,
     userId: session?.user.id,
   });
 
@@ -49,9 +51,19 @@ const CreateNoteForm: FC<CreateNoteProps> = ({ session }) => {
     mutationKey: ["createNote"],
     mutationFn: () => create_note(noteData),
     onSuccess: (data: NoteType) => {
-      router.push("/app/note/" + data.id);
+      router.push("/note/" + data.id);
     },
   });
+
+  const updateNoteMutation = useMutation(
+    ["updateNote"],
+    () => update_note(note?.id!, noteData),
+    {
+      onSuccess: () => {
+        toast.success("Note updated successfully!");
+      },
+    }
+  );
 
   const initEditor = useCallback(async () => {
     const EditorJS = (await import("@editorjs/editorjs")).default;
@@ -64,7 +76,7 @@ const CreateNoteForm: FC<CreateNoteProps> = ({ session }) => {
         },
         placeholder: "Start typing or press tab for options...",
         inlineToolbar: true,
-        data: { blocks: [] },
+        data: noteData.content || { blocks: [] },
         tools: EditorJSConfig.tools,
         onChange: () => {
           setError(null);
@@ -97,7 +109,13 @@ const CreateNoteForm: FC<CreateNoteProps> = ({ session }) => {
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
 
+    if (ref.current === undefined) {
+      return null;
+    }
+
     const blocks = await ref.current?.save();
+
+    let notesContent = await ref.current?.save();
 
     if (!noteData.title) {
       setError("Please add a title!");
@@ -109,14 +127,21 @@ const CreateNoteForm: FC<CreateNoteProps> = ({ session }) => {
       return;
     }
 
-    setNoteData((prevState) => ({ ...prevState, content: blocks }));
+    if (note?.id) {
+      await afterStateUpdate(blocks, updateNoteMutation.mutate);
+    } else {
+      await afterStateUpdate(blocks, createNote);
+    }
   };
 
-  useEffect(() => {
-    if (noteData.content.blocks?.length > 0) {
-      createNote();
-    }
-  }, [noteData.content]);
+  const afterStateUpdate = async (data: any, callback: any) => {
+    console.log(data);
+    setNoteData((prevState) => ({ ...prevState, content: data }));
+    // console.log(noteData);
+    setTimeout(() => {
+      callback && callback();
+    }, 1000);
+  };
 
   if (!isMounted) {
     return null;
@@ -124,11 +149,11 @@ const CreateNoteForm: FC<CreateNoteProps> = ({ session }) => {
 
   return (
     <form
-      className="flex flex-col md:flex-row gap-4 p-4 pr-4 md:pr-6"
+      className="flex flex-col md:flex-row gap-4 py-4 pr-4 md:pr-6"
       onSubmit={handleSubmit}
       onChange={() => setError(null)}
     >
-      <div className="w-full flex flex-col max-w-5xl">
+      <div className="w-full flex flex-col md:max-w-5xl">
         {error && (
           <Alert
             variant={"destructive"}
@@ -150,11 +175,11 @@ const CreateNoteForm: FC<CreateNoteProps> = ({ session }) => {
         />
         <div
           id="editor"
-          className="min-h-[300px] py-4 w-full pl-2 md:pl-6 lg:pl-12 px-2 md:px-4"
+          className="py-4 w-fit pl-2 md:pl-6 lg:pl-12 px-2 md:px-4"
         />
         <Button
           className="hidden md:flex mr-auto ml-2 md:ml-6 lg:ml-12 mt-6"
-          loading={isLoading}
+          loading={isLoading || updateNoteMutation.isLoading}
         >
           Save
         </Button>
@@ -174,11 +199,14 @@ const CreateNoteForm: FC<CreateNoteProps> = ({ session }) => {
           onValueChange={(val) =>
             setNoteData((prevState) => ({ ...prevState, tags: val }))
           }
-          value={noteData.tags}
+          value={noteData.tags || []}
         />
       </div>
 
-      <Button className="md:hidden mr-auto" loading={isLoading}>
+      <Button
+        className="md:hidden mr-auto"
+        loading={isLoading || updateNoteMutation.isLoading}
+      >
         Save
       </Button>
     </form>

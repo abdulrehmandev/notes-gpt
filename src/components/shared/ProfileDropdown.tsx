@@ -15,6 +15,7 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
 } from "../ui/Dropdown";
+import { redirect } from "next/navigation";
 
 interface ProfileDropdownProps {
   session: Session;
@@ -47,7 +48,12 @@ const ProfileDropdown: React.FC<ProfileDropdownProps> = ({ session }) => {
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => signOut()}>
+        <DropdownMenuItem
+          onClick={() => {
+            signOut();
+            redirect("/");
+          }}
+        >
           <LogOut className="w-4 h-4 mr-2" /> Sign out
         </DropdownMenuItem>
       </DropdownMenuContent>

@@ -1,8 +1,8 @@
 import React, { FC } from "react";
-
 import { getAuthSession } from "@/lib/auth";
-import Navbar from "@/components/layout/Navbar";
 import AppSidebar from "@/components/layout/AppSidebar";
+import AppNavbar from "@/components/layout/AppNavbar";
+import { notFound } from "next/navigation";
 
 interface AppLayoutProps {
   children: React.ReactNode;
@@ -11,12 +11,18 @@ interface AppLayoutProps {
 const AppLayout: FC<AppLayoutProps> = async ({ children }) => {
   const session = await getAuthSession();
 
+  if (!session) {
+    return notFound();
+  }
+
   return (
     <main>
-      <Navbar session={session} />
-      <div className="flex w-full">
-        <AppSidebar />
-        <div className="w-full">{children}</div>
+      <div className="flex w-full px-0">
+        <AppSidebar session={session} />
+        <div className="w-full md:pl-72">
+          <AppNavbar session={session} />
+          <div className="flex overflow-auto w-full">{children}</div>
+        </div>
       </div>
     </main>
   );

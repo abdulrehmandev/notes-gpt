@@ -1,6 +1,6 @@
 import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { userDetailsSchema } from "@/lib/zod/user";
+import { userDetailsSchema } from "@/lib/definitions/user";
 
 export async function PATCH(req: Request) {
   try {
