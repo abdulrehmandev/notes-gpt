@@ -109,7 +109,13 @@ const CreateNoteForm: FC<CreateNoteProps> = ({ session, note }) => {
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
 
+    if (ref.current === undefined) {
+      return null;
+    }
+
     const blocks = await ref.current?.save();
+
+    let notesContent = await ref.current?.save();
 
     if (!noteData.title) {
       setError("Please add a title!");
@@ -122,15 +128,19 @@ const CreateNoteForm: FC<CreateNoteProps> = ({ session, note }) => {
     }
 
     if (note?.id) {
-      afterStateUpdate(blocks, updateNoteMutation.mutate);
+      await afterStateUpdate(blocks, updateNoteMutation.mutate);
     } else {
-      afterStateUpdate(blocks, createNote);
+      await afterStateUpdate(blocks, createNote);
     }
   };
 
-  const afterStateUpdate = (data: any, callback: any) => {
+  const afterStateUpdate = async (data: any, callback: any) => {
+    console.log(data);
     setNoteData((prevState) => ({ ...prevState, content: data }));
-    callback && callback();
+    // console.log(noteData);
+    setTimeout(() => {
+      callback && callback();
+    }, 1000);
   };
 
   if (!isMounted) {

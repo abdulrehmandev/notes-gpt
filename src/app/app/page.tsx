@@ -36,7 +36,7 @@ const AppPage = () => {
             ) : null}
           </div>
           {!notesQuery.isLoading &&
-            (notesQuery.data?.data.length ? (
+            (notesQuery.data?.data?.length ? (
               <NotesPagination
                 hasNextPage={notesQuery.data?.metadata.hasNextPage ?? false}
               />
