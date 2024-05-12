@@ -12,3 +12,13 @@
   padding-bottom: 100px !important;
   margin-right: 0 !important;
 }
+
+.scrollbar::-webkit-scrollbar {
+  @apply bg-transparent w-2;
+}
+.scrollbar::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+.scrollbar::-webkit-scrollbar-thumb {
+  @apply bg-zinc-200 rounded-full;
+}

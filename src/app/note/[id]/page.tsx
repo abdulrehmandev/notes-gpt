@@ -30,7 +30,7 @@ interface NotePageProps {
 
 const NotePage: FC<NotePageProps> = ({ params }) => {
   const { data: session } = useSession();
-  const { data: note, isFetched } = useQuery(
+  const { data: note, isLoading } = useQuery(
     "getNoteById",
     () => get_note_by_id(params.id),
     {
@@ -38,15 +38,15 @@ const NotePage: FC<NotePageProps> = ({ params }) => {
     }
   );
 
-  if (!isFetched) {
+  if (isLoading) {
     return <Loader className="mx-auto mt-20 animate-spin" />;
   }
 
-  if (!note) {
+  if (!note?.id) {
     return notFound();
   }
 
-  if (!note.isPublic && session?.user.id !== note.userId) {
+  if (session?.user.id !== note.userId) {
     return (
       <main>
         <Container className="max-w-5xl mt-12">

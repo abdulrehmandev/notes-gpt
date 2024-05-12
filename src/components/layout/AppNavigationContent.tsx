@@ -12,7 +12,6 @@ import {
   StickyNoteIcon,
   User,
   UserRound,
-  Users,
 } from "lucide-react";
 import {
   DropdownMenu,
@@ -26,29 +25,46 @@ import { getInitials } from "@/lib/helpers/stringsFormat";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
 import { Session } from "next-auth";
+import { usePathname } from "next/navigation";
 
 interface AppNavigationContentProps {
   session: Session;
 }
 
 const AppNavigationContent: FC<AppNavigationContentProps> = ({ session }) => {
+  const pathname = usePathname();
   return (
     <div className="pt-4 flex flex-col justify-between h-full md:h-[88vh]">
       <nav className="flex flex-col gap-1">
-        <SidebarLink href={"/app/create"}>
-          <Plus className="w-4 h-4" /> Create
-        </SidebarLink>
-        <SidebarLink href={"/app"}>
+        <SidebarLink
+          variant={pathname === "/app" ? "active" : "default"}
+          href={"/app"}
+        >
           <StickyNoteIcon className="w-4 h-4" /> Notes
         </SidebarLink>
-        <SidebarLink href={"/app/bookmarks"}>
+        <SidebarLink
+          variant={pathname === "/app/create" ? "active" : "default"}
+          href={"/app/create"}
+        >
+          <Plus className="w-4 h-4" /> Create
+        </SidebarLink>
+        <SidebarLink
+          variant={pathname === "/app/bookmarks" ? "active" : "default"}
+          href={"/app/bookmarks"}
+        >
           <BookmarkCheck className="w-4 h-4" /> Bookmarks
         </SidebarLink>
-        <SidebarLink href={"/app/ai"}>
-          <BrainCircuit className="w-4 h-4" /> Your AI
+        <SidebarLink
+          variant={pathname === "/app/ai" ? "active" : "default"}
+          href={"/app/ai"}
+        >
+          <BrainCircuit className="w-4 h-4" /> Ask AI
         </SidebarLink>
         <span className="h-3" />
-        <SidebarLink href={"/app/notifications"}>
+        <SidebarLink
+          variant={pathname === "/app/notifications" ? "active" : "default"}
+          href={"/app/notifications"}
+        >
           <Bell className="w-4 h-4" /> Notifications
         </SidebarLink>
       </nav>

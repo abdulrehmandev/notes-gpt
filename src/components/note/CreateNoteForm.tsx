@@ -49,7 +49,7 @@ const CreateNoteForm: FC<CreateNoteProps> = ({ session, note }) => {
 
   const { mutate: createNote, isLoading } = useMutation({
     mutationKey: ["createNote"],
-    mutationFn: () => create_note(noteData),
+    mutationFn: (data: any) => create_note(data),
     onSuccess: (data: NoteType) => {
       router.push("/note/" + data.id);
     },
@@ -57,9 +57,10 @@ const CreateNoteForm: FC<CreateNoteProps> = ({ session, note }) => {
 
   const updateNoteMutation = useMutation(
     ["updateNote"],
-    () => update_note(note?.id!, noteData),
+    (data: any) => update_note(note?.id!, data),
     {
       onSuccess: () => {
+        router.push("/note/" + note?.id);
         toast.success("Note updated successfully!");
       },
     }
@@ -115,8 +116,6 @@ const CreateNoteForm: FC<CreateNoteProps> = ({ session, note }) => {
 
     const blocks = await ref.current?.save();
 
-    let notesContent = await ref.current?.save();
-
     if (!noteData.title) {
       setError("Please add a title!");
       return;
@@ -128,17 +127,17 @@ const CreateNoteForm: FC<CreateNoteProps> = ({ session, note }) => {
     }
 
     if (note?.id) {
-      await afterStateUpdate(blocks, updateNoteMutation.mutate);
+      await updateNoteMutation.mutate({ ...noteData, content: blocks });
     } else {
-      await afterStateUpdate(blocks, createNote);
+      createNote({ ...noteData, content: blocks });
+      // await afterStateUpdate(blocks, createNote);
     }
   };
 
   const afterStateUpdate = async (data: any, callback: any) => {
-    console.log(data);
     setNoteData((prevState) => ({ ...prevState, content: data }));
-    // console.log(noteData);
     setTimeout(() => {
+      // console.log(noteData.content);
       callback && callback();
     }, 1000);
   };
@@ -149,7 +148,7 @@ const CreateNoteForm: FC<CreateNoteProps> = ({ session, note }) => {
 
   return (
     <form
-      className="flex flex-col md:flex-row gap-4 py-4 pr-4 md:pr-6"
+      className="flex flex-col md:flex-row gap-4 py-4 px-4 md:pr-6"
       onSubmit={handleSubmit}
       onChange={() => setError(null)}
     >
@@ -175,7 +174,7 @@ const CreateNoteForm: FC<CreateNoteProps> = ({ session, note }) => {
         />
         <div
           id="editor"
-          className="py-4 w-fit pl-2 md:pl-6 lg:pl-12 px-2 md:px-4"
+          className="py-4 w-fit md:min-w-[500px] pl-2 md:pl-6 lg:pl-12 px-2 md:px-4"
         />
         <Button
           className="hidden md:flex mr-auto ml-2 md:ml-6 lg:ml-12 mt-6"

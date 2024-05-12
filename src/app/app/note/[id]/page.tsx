@@ -1,21 +1,8 @@
 import { FC } from "react";
-// import { useQuery } from "react-query";
 import { notFound } from "next/navigation";
-// import { Globe, Loader, Lock } from "lucide-react";
 
 import { get_note_by_id } from "@/services/note";
 import Container from "@/components/layout/Container";
-// import NoteOutput from "@/components/note/NoteOutput";
-// import { useSession } from "next-auth/react";
-// import NextLink from "next/link";
-// import { cn } from "@/lib/utils";
-// import { buttonVariants } from "@/components/ui/Button";
-// import {
-//   TooltipProvider,
-//   Tooltip,
-//   TooltipTrigger,
-//   TooltipContent,
-// } from "@/components/ui/Tooltip";
 import Link from "@/components/ui/Link";
 import CreateNoteForm from "@/components/note/CreateNoteForm";
 import { getAuthSession } from "@/lib/auth";

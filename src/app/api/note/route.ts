@@ -1,8 +1,11 @@
 import { z } from "zod";
+import openai from "@/lib/openai";
 
 import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { noteSchema } from "@/lib/definitions/note";
+import { supabaseClient } from "@/lib/supabase";
+import edjsHtml from "@/lib/edjs-html";
 
 export async function POST(req: Request) {
   try {
@@ -22,14 +25,43 @@ export async function POST(req: Request) {
       })
       .parse(await req.json());
 
-    const newNote = await db.note.create({
+    const textToEmbed = Object.values({
+      title: note.title,
+      content: edjsHtml.parse(note.content).join(" "),
+      tags: note.tags,
+    }).join(" ");
+
+    const {
+      data: [{ embedding: embeddings }],
+    } = await openai.embeddings.create({
+      model: "text-embedding-ada-002",
+      input: textToEmbed,
+    });
+
+    const { id } = await db.note.create({
       data: {
         ...note,
         content: note.content,
       },
+      select: {
+        id: true,
+      },
     });
 
-    return new Response(JSON.stringify(newNote), { status: 200 });
+    const { error, data } = await supabaseClient
+      .from("Note")
+      .update({
+        embeddings,
+      })
+      .eq("id", id)
+      .select()
+      .single();
+
+    if (error) {
+      throw new Error(error.message);
+    }
+
+    return new Response(JSON.stringify(data), { status: 200 });
   } catch (error) {
     if (error instanceof z.ZodError) {
       return new Response(error.message, { status: 400 });

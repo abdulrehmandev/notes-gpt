@@ -7,14 +7,14 @@ import { cn } from "@/lib/utils";
 import { VariantProps, cva } from "class-variance-authority";
 import { UserRound } from "lucide-react";
 
-const avatarVariant = cva("relative flex shrink-0 overflow-hidden rounded-sm", {
+const avatarVariant = cva("relative flex shrink-0 overflow-hidden rounded-md", {
   variants: {
     size: {
       default: "h-10 w-10",
       md: "w-8 h-8",
       lg: "w-12 h-12",
-      xl: "w-16 h-16",
-      "2xl": "w-24 h-24",
+      xl: "w-16 h-16 rounded-lg",
+      "2xl": "w-24 h-24 rounded-xl",
     },
   },
   defaultVariants: {

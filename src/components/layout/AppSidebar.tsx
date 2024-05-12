@@ -11,7 +11,7 @@ interface AppSidebarProps {
 
 const AppSidebar: React.FC<AppSidebarProps> = ({ session }) => {
   return (
-    <aside className="bg-zinc-100/70 hidden fixed md:block h-screen w-72 py-3 px-3 overflow-hidden">
+    <aside className="bg-zinc-100/70 hidden fixed md:block h-screen w-64 py-3 px-3 overflow-hidden">
       <Logo className="mt-2 ml-3 mb-4" />
       <AppNavigationContent session={session} />
     </aside>
