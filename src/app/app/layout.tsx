@@ -11,7 +11,7 @@ interface AppLayoutProps {
 const AppLayout: FC<AppLayoutProps> = async ({ children }) => {
   const session = await getAuthSession();
 
-  if (!session) {
+  if (!session?.user) {
     return notFound();
   }
 

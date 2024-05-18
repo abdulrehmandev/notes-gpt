@@ -21,7 +21,7 @@ const AppPage = () => {
 
   return (
     <main className="py-4 w-full">
-      <h1 className="tracking-tighter font-medium text-4xl mb-8 ml-4 md:ml-6">
+      <h1 className="tracking-tighter font-medium text-4xl mt-2 mb-8 ml-4 md:ml-6">
         Your Notes
       </h1>
       <div className="px-6 grid grid-cols-1 md:grid-cols-4 gap-4">

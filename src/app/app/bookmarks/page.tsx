@@ -25,7 +25,7 @@ const BookmarksPage: React.FC<BookmarksPageProps> = ({}) => {
 
   return (
     <main className="py-4 w-full">
-      <h1 className="tracking-tighter font-medium text-4xl mb-8 ml-4 md:ml-6">
+      <h1 className="tracking-tighter font-medium text-4xl mt-2 mb-8 ml-4 md:ml-6">
         Bookmarks
       </h1>
       <Container className="grid grid-cols-1 md:grid-cols-4 gap-4 max-w-full">

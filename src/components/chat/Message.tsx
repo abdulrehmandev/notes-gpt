@@ -1,10 +1,13 @@
 import React from "react";
 import type { Session } from "next-auth";
 import { User } from "lucide-react";
+import Markdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import remarkBreaks from "remark-breaks";
+import type { Message } from "ai";
 
 import Logo from "../shared/Logo";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/Avatar";
-import type { Message } from "ai";
 
 interface MessageProps {
   message: Message;
@@ -32,7 +35,12 @@ const Message: React.FC<MessageProps> = ({ message, session }) => {
           </Avatar>
         )}
       </div>
-      <p>{message.content}</p>
+      <Markdown
+        className="flex flex-col items-start gap-2"
+        remarkPlugins={[remarkGfm, remarkBreaks]}
+      >
+        {message.content}
+      </Markdown>
     </div>
   );
 };

@@ -46,7 +46,7 @@ const NotePage: FC<NotePageProps> = ({ params }) => {
     return notFound();
   }
 
-  if (session?.user.id !== note.userId) {
+  if (session?.user.id !== note.userId && !note.isPublic) {
     return (
       <main>
         <Container className="max-w-5xl mt-12">

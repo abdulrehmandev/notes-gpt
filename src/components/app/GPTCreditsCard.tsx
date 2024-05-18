@@ -19,10 +19,10 @@ const GPTCreditsCard = () => {
         <p>Available Credits: 121</p>
       </CardContent>
       <CardFooter className="gap-3">
-        <Button size="sm" variant="secondary">
+        <Button disabled size="sm" variant="secondary">
           View Details
         </Button>
-        <Button variant="primary" size="sm">
+        <Button disabled variant="primary" size="sm">
           Buy More
         </Button>
       </CardFooter>

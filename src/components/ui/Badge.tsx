@@ -5,11 +5,11 @@ import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const badgeVariants = cva(
-  "inline-flex gap-2 items-center rounded-md border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2",
+  "inline-flex gap-2 items-center rounded-md border px-2.5 py-0.5 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2",
   {
     variants: {
       variant: {
-        default: "border-transparent bg-blue-500 text-white shadow",
+        default: "border-transparent bg-blue-400 text-white shadow",
         secondary: "border-transparent bg-zinc-200/50 text-zinc-500",
         destructive: "border-transparent bg-red-600 text-white shadow",
         outline: "text-black",

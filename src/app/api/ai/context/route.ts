@@ -4,7 +4,7 @@ import { getAuthSession } from "@/lib/auth";
 import { supabaseClient } from "@/lib/supabase";
 import edjsHtml from "@/lib/edjs-html";
 import openai from "@/lib/openai";
-// import fs from "fs";
+import fs from "fs";
 
 export async function POST(req: Request) {
   try {

@@ -38,7 +38,7 @@ const NoteProfileCard: FC<NoteProfileCardProps> = ({ note }) => {
               .replace(/<[^>]*>?/gm, "")}
           </CardDescription>
           <div className="flex items-center justify-end gap-3 mt-2">
-            {note.tags?.map((tag) => (
+            {note.tags?.slice(0, 2).map((tag) => (
               <Badge variant="secondary" key={tag} className="text-xs">
                 {tag}
               </Badge>

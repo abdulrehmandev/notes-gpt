@@ -17,7 +17,7 @@ const style = {
     fontSize: "0.875rem",
     lineHeight: "1.25rem",
     marginBottom: "1rem",
-    fontWeight: "600",
+    fontWeight: "500",
     br: {
       fontWeight: "bold",
     },
@@ -62,6 +62,7 @@ const style = {
 };
 
 const NoteOutput: FC<NoteOutputProps> = ({ content }) => {
+  console.log(content);
   return (
     <section className="my-6">
       <Output style={style} data={content} />
