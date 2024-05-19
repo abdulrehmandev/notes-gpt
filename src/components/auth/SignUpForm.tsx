@@ -19,7 +19,7 @@ import {
 import { Input } from "../ui/Input";
 import { Button } from "../ui/Button";
 import Link from "../ui/Link";
-import { Alert, AlertTitle } from "../ui/Alert";
+import { Alert, AlertDescription, AlertTitle } from "../ui/Alert";
 import { signUpSchema, SignUpType } from "@/lib/definitions/auth";
 
 interface SignUpFormProps {}
@@ -55,7 +55,8 @@ const SignUpForm: FC<SignUpFormProps> = ({}) => {
       return;
     }
 
-    signUp(data);
+    // signUp(data);
+    return;
   };
 
   return (
@@ -65,6 +66,13 @@ const SignUpForm: FC<SignUpFormProps> = ({}) => {
         className="space-y-3 py-4 max-w-xs w-full"
         onChange={() => setError("")}
       >
+        <Alert>
+          <AlertCircle className="w-4 h-4" />
+          <AlertTitle>Sign up is not avaialbe at the moment.</AlertTitle>
+          <AlertDescription>
+            We are currently in a closed beta. Sign up will be available soon.
+          </AlertDescription>
+        </Alert>
         {error && (
           <Alert variant="destructive">
             <AlertCircle className="w-4 h-4" />
@@ -126,7 +134,8 @@ const SignUpForm: FC<SignUpFormProps> = ({}) => {
         />
 
         <Button
-          disabled={!!error}
+          // disabled={!!error}
+          disabled
           loading={isLoading}
           type="submit"
           className="block w-full"
