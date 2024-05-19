@@ -62,8 +62,6 @@ Context: ${data.context}`;
     api: "/api/ai/chat",
   });
 
-  console.log(messages);
-
   useEffect(() => {
     if (chatBoxRef.current) {
       const maxScrollTop =
@@ -162,7 +160,7 @@ Context: ${data.context}`;
             size="icon"
             className="bg-blue-500 hover:bg-blue-500/90 h-10 w-10 text-white rounded-full absolute bottom-2 right-[18px]"
             loading={loadingState}
-            // disabled={promptInput.length === 0 || loadingState}
+            disabled={promptInput.length === 0 || loadingState}
             type="submit"
             id="message-input-submit-button"
           >
