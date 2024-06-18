@@ -73,3 +73,48 @@ export async function POST(
     return new Response("Internal Server Error", { status: 500 });
   }
 }
+
+export async function DELETE(
+  req: Request,
+  { params }: { params: { id: string } }
+) {
+  try {
+    const session = await getAuthSession();
+
+    if (!session?.user) {
+      return new Response("Unauthorized", { status: 401 });
+    }
+
+    const note = await db.note.findFirst({
+      where: {
+        id: params.id,
+      },
+    });
+
+    if (!note) {
+      return new Response("Not Found", { status: 400 });
+    }
+
+    if (note.userId !== session.user.id) {
+      return new Response("Unauthorized", { status: 401 });
+    }
+
+    await db.note.delete({
+      where: {
+        id: note.id,
+      },
+      include: {
+        bookmarks: {
+          where: {
+            noteId: note.id,
+          },
+        },
+      },
+    });
+
+    return new Response("OK", { status: 200 });
+  } catch (error) {
+    console.log(error);
+    return new Response("Internal Server Error", { status: 500 });
+  }
+}

@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { looseOptional } from "../helpers/zodHelpers";
+import { BookmarkType } from "./bookmark";
 
 export const noteSchema = z.object({
   id: z.string().uuid(),
@@ -13,8 +14,9 @@ export const noteSchema = z.object({
 });
 export type NoteType = z.infer<typeof noteSchema>;
 
+type NoteWithBookmarkType = NoteType & { bookmarks: BookmarkType[] };
 export type NotesFeedType = {
-  data: NoteType[];
+  data: NoteWithBookmarkType[];
   metadata: {
     hasNextPage: boolean;
     totalPages: number;

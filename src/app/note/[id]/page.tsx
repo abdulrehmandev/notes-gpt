@@ -1,17 +1,17 @@
 "use client";
 
-import { FC } from "react";
+import React, { FC } from "react";
 import { useQuery } from "react-query";
 import { notFound } from "next/navigation";
 import NextLink from "next/link";
 import { useSession } from "next-auth/react";
-import { Globe, Loader, Lock } from "lucide-react";
+import { Globe, Loader, Lock, EllipsisVertical } from "lucide-react";
 
 import { get_note_by_id } from "@/services/note";
 import Container from "@/components/layout/Container";
 import NoteOutput from "@/components/note/NoteOutput";
 import { cn } from "@/lib/utils";
-import { buttonVariants } from "@/components/ui/Button";
+import { Button, buttonVariants } from "@/components/ui/Button";
 import {
   TooltipProvider,
   Tooltip,
@@ -21,6 +21,13 @@ import {
 import Link from "@/components/ui/Link";
 import { Badge } from "@/components/ui/Badge";
 import BookmarkButton from "@/components/note/BookmarkButton";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/Dropdown";
+import DeleteNoteDialog from "@/components/note/DeleteNoteDialog";
 
 interface NotePageProps {
   params: {
@@ -31,12 +38,14 @@ interface NotePageProps {
 const NotePage: FC<NotePageProps> = ({ params }) => {
   const { data: session } = useSession();
   const { data: note, isLoading } = useQuery(
-    "getNoteById",
+    ["getNoteById", params.id],
     () => get_note_by_id(params.id),
     {
       retry: false,
     }
   );
+
+  const [deleteOpened, setDeleteOpened] = React.useState(false);
 
   if (isLoading) {
     return <Loader className="mx-auto mt-20 animate-spin" />;
@@ -105,16 +114,37 @@ const NotePage: FC<NotePageProps> = ({ params }) => {
 
                 <BookmarkButton noteId={params.id} />
 
-                <NextLink
-                  href={`/app/note/${note.id}`}
-                  className={cn(buttonVariants({ variant: "secondary" }))}
-                >
-                  Edit Note
-                </NextLink>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button className="-ml-2" variant="ghost" size="icon">
+                      <EllipsisVertical size={16} />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    <DropdownMenuItem>
+                      <NextLink href={`/app/note/${note.id}`}>
+                        Edit Note
+                      </NextLink>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem className="focus:bg-red-50">
+                      <button
+                        onClick={() => setDeleteOpened(true)}
+                        className="text-red-600"
+                      >
+                        Delete Note
+                      </button>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </>
             )}
           </div>
         </div>
+        <DeleteNoteDialog
+          noteId={note.id}
+          opened={deleteOpened}
+          onOpenChange={setDeleteOpened}
+        />
         {!!note.content && <NoteOutput content={note.content} />}
       </Container>
     </main>

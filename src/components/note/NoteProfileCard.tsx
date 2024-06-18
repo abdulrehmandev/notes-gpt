@@ -9,11 +9,13 @@ import {
   CardTitle,
 } from "../ui/Card";
 import edjsHtml from "@/lib/edjs-html";
-import { Globe, Lock } from "lucide-react";
+import { BookmarkCheck, Globe, Lock } from "lucide-react";
 import { Badge } from "../ui/Badge";
-
+import { BookmarkType } from "@/lib/definitions/bookmark";
 interface NoteProfileCardProps {
-  note: NoteType;
+  note: NoteType & {
+    bookmarks?: BookmarkType[];
+  };
 }
 
 const NoteProfileCard: FC<NoteProfileCardProps> = ({ note }) => {
@@ -23,11 +25,16 @@ const NoteProfileCard: FC<NoteProfileCardProps> = ({ note }) => {
         <CardHeader className="pb-2">
           <div className="flex items-start justify-between">
             <CardTitle>{note.title}</CardTitle>
-            {note.isPublic ? (
-              <Globe className="w-4 h-4 text-slate-400" />
-            ) : (
-              <Lock className="w-4 h-4 text-slate-400" />
-            )}
+            <div className="flex items-center gap-3">
+              {note.bookmarks && note.bookmarks.length > 0 && (
+                <BookmarkCheck size={16} />
+              )}
+              {note.isPublic ? (
+                <Globe className="w-4 h-4 text-slate-400" />
+              ) : (
+                <Lock className="w-4 h-4 text-slate-400" />
+              )}
+            </div>
           </div>
         </CardHeader>
         <CardContent>

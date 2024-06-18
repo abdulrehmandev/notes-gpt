@@ -13,6 +13,11 @@ export async function get_note_by_id(id: string) {
   return data as NoteType;
 }
 
+export async function delete_note_by_id(id: string) {
+  const { data } = await axios.delete("/api/note/" + id);
+  return data;
+}
+
 export async function get_public_notes_by_user_id(id: string) {
   const { data } = await axios.get("/api/note/public/" + id);
   return data as NoteType[];

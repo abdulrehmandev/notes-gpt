@@ -56,9 +56,12 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({
       <Tooltip>
         <TooltipTrigger>
           <Button
-            variant={variant || "secondary"}
+            variant={variant || "ghost"}
             size={size || "icon"}
-            onClick={() => {
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+
               if (bookmarkQuery.data) {
                 deleteBookmarkMutation.mutate();
               } else createBookmarkMutation.mutate();

@@ -3,7 +3,7 @@
 import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AlertCircle } from "lucide-react";
+import { AlertCircle, Info } from "lucide-react";
 import { useMutation } from "react-query";
 import axios, { AxiosError } from "axios";
 
@@ -67,7 +67,7 @@ const SignUpForm: FC<SignUpFormProps> = ({}) => {
         onChange={() => setError("")}
       >
         <Alert>
-          <AlertCircle className="w-4 h-4" />
+          <Info className="w-4 h-4" />
           <AlertTitle>Sign up is not avaialbe at the moment.</AlertTitle>
           <AlertDescription>
             We are currently in a closed beta. Sign up will be available soon.

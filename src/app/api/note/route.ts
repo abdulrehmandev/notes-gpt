@@ -88,6 +88,13 @@ export async function GET(req: Request) {
       where: {
         userId: session.user.id,
       },
+      include: {
+        bookmarks: {
+          where: {
+            userId: session.user.id,
+          },
+        },
+      },
       orderBy: {
         updatedAt: "desc",
       },

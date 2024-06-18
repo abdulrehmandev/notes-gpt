@@ -10,6 +10,7 @@ import {
 } from "react";
 import { useRouter } from "next/navigation";
 import { useMutation } from "react-query";
+import { toast } from "sonner";
 import type EditorJS from "@editorjs/editorjs";
 import type { Session } from "next-auth";
 
@@ -22,7 +23,6 @@ import { Separator } from "../ui/Separator";
 import { TagInput } from "./Tag";
 import { Label } from "../ui/Label";
 import { Switch } from "../ui/Switch";
-import { toast } from "sonner";
 
 interface CreateNoteProps {
   session: Session;
@@ -130,16 +130,7 @@ const CreateNoteForm: FC<CreateNoteProps> = ({ session, note }) => {
       await updateNoteMutation.mutate({ ...noteData, content: blocks });
     } else {
       createNote({ ...noteData, content: blocks });
-      // await afterStateUpdate(blocks, createNote);
     }
-  };
-
-  const afterStateUpdate = async (data: any, callback: any) => {
-    setNoteData((prevState) => ({ ...prevState, content: data }));
-    setTimeout(() => {
-      // console.log(noteData.content);
-      callback && callback();
-    }, 1000);
   };
 
   if (!isMounted) {
