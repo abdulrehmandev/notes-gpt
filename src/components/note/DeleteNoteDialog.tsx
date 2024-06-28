@@ -9,7 +9,7 @@ import {
 } from "../ui/Dialoge";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { Button } from "../ui/Button";
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation } from "react-query";
 import { delete_note_by_id } from "@/services/note";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";

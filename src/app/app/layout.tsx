@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { getAuthSession } from "@/lib/auth";
 import AppSidebar from "@/components/layout/AppSidebar";
 import AppNavbar from "@/components/layout/AppNavbar";
-import { notFound } from "next/navigation";
+import { redirect } from "next/navigation";
 
 interface AppLayoutProps {
   children: React.ReactNode;
@@ -12,7 +12,7 @@ const AppLayout: FC<AppLayoutProps> = async ({ children }) => {
   const session = await getAuthSession();
 
   if (!session?.user) {
-    return notFound();
+    return redirect("/auth/sign-in");
   }
 
   return (

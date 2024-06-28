@@ -16,7 +16,7 @@ export default function Home() {
     <main>
       <Container className="mt-20 text-center">
         <span className="bg-white border font-semibold text-zinc-500 text-xs px-6 py-2 rounded-full shadow-md">
-          Beta version
+          Sign up to get started!
         </span>
         <h1 className="font-medium tracking-tighter text-4xl md:text-6xl max-w-lg mx-auto mt-8">
           Chat with your <span className="text-blue-500">notes</span>{" "}
