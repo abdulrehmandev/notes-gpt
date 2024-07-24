@@ -11,6 +11,10 @@ interface AppLayoutProps {
 const AppLayout: FC<AppLayoutProps> = async ({ children }) => {
   const session = await getAuthSession();
 
+  if (process.env.DEV_ENV !== "development") {
+    return redirect("/access-denied");
+  }
+
   if (!session?.user) {
     return redirect("/auth/sign-in");
   }
